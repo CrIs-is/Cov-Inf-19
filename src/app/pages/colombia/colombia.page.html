@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button text="" defaultHref="home" color="primary"></ion-back-button>
+        </ion-buttons>
+
+
+        <ion-item lines="none" color="dark">
+
+            <ion-icon class="icono" slot="end" color="primary" name="search-outline" (click)="presentModal()">
+            </ion-icon>
+
+            <ion-label>Buscar departamento</ion-label>
+
+        </ion-item>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+
+
+
+
+    <!-- <app-componente-departamentos #barra
+       [nombreDepartamentos]="nombreDepartamentos"
+       [casosByDepartamento]="casosByDepartamento"
+       [data]="data"
+      ></app-componente-departamentos>-->
+
+    <!--
+   
+      <ion-card-header>
+        <ion-card-subtitle>Numero de <ion-text color="primary">CASOS</ion-text> por departamento</ion-card-subtitle>
+        <ion-card-title>Covid-19-Departamentos</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #canvas1></canvas>
+      </ion-card-content>
+   
+      
+        
+      
+       <ion-list-header color="light"></ion-list-header>
+  
+      
+      <ion-card-header>
+        <ion-card-subtitle>Numeros de <ion-text color="primary">CASOS</ion-text> de covid-19 por sexo </ion-card-subtitle>
+        <ion-card-title>Covid-19-Sexo <ion-icon name="pie-chart"></ion-icon></ion-card-title>
+      </ion-card-header>
+      
+        <canvas id="canvas2"></canvas>
+  
+        <ion-list-header color="light"></ion-list-header>
+  
+      
+        <ion-card-header>
+          <ion-card-subtitle>Numeros de <ion-text color="primary">CASOS</ion-text> de covid-19 por rango  de edad y sexo </ion-card-subtitle>
+          <ion-card-title>Covid-19-Edad y Sexo <ion-icon name="pie-chart"></ion-icon></ion-card-title>
+        </ion-card-header>
+        
+        <ion-card class="welcome-card">
+          <canvas id="canvas3"></canvas>
+        </ion-card>
+  
+        <ion-list-header color="light"></ion-list-header>
+  
+        <ion-card-header>
+          <ion-card-subtitle>Numeros de <ion-text color="primary">CASOS</ion-text> de covid-19 por rango  de edad</ion-card-subtitle>
+          <ion-card-title>Covid-19-Edad <ion-icon name="pie-chart"></ion-icon></ion-card-title>
+        </ion-card-header>
+        
+        <ion-card class="welcome-card">
+          <canvas id="canvas4"></canvas>-->
+
+
+
+    <ion-tabs>
+        <ion-tab-bar slot="bottom" color="dark">
+
+            <ion-tab-button tab="casos">
+                <ion-icon name="flag-outline"></ion-icon>
+                <ion-label>Casos</ion-label>
+                <ion-badge color="primary">6+</ion-badge>
+            </ion-tab-button>
+
+            <ion-tab-button tab="muertes">
+                <ion-icon name="skull-outline"></ion-icon>
+                <ion-label>Muertes</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button tab="recuperados">
+                <ion-icon name="thumbs-up-outline"></ion-icon>
+                <ion-label>Recuperados</ion-label>
+            </ion-tab-button>
+
+
+
+
+
+        </ion-tab-bar>
+    </ion-tabs>
+
+
+
+</ion-content>

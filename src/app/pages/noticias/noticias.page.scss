@@ -1,0 +1,35 @@
+.logo {
+    height: 55px;
+    width: 55px;
+}
+
+ion-card img {
+    text-align: center;
+    width: 100%;
+    //max-height: 200px;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.margin {
+    margin-top: 5px;
+    font-weight: bold;
+}
+
+.flotante {
+    float: right;
+}
+
+.animate__animated.animate__backInRight {
+    --animate-duration: 2s;
+}
+
+.clase {
+    width: 25%;
+}
+
+.carga {
+    height: 200px;
+}

@@ -1,0 +1,42 @@
+ // obteniendo los resultados de forma nativa
+ /* nativeHttp(fecha){
+    
+    let nativeCall = this.native_Http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}`,{},{
+      'Content-Type':'application/json'
+    });
+    from(nativeCall).pipe(
+      finalize(()=> console.log("nativo finalizado"))
+    ).subscribe(data=>{
+      
+      let convertido =  JSON.parse(data.data)           
+      this.colombia =  convertido['dates'][fecha]['countries']['Colombia'] 
+      console.log(this.colombia.id)  
+
+    },(error)=>  {
+      this.totalCasosColombia = "errror "+ error
+    })
+    
+  }*/
+
+   getDataByFechaStandar(fecha: string) {
+    const options = {
+      headers: new HttpHeaders({
+        'Conten-Type':'aplication/json'
+      })
+    }
+    return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}`)
+  } 
+
+   getDataStandarHttp(fecha: string){
+    this.dataSer.getDataByFechaStandar(fecha).subscribe(
+      (data)=>{  
+           
+        //data
+        this.colombia = data['dates'][fecha]['countries']['Colombia']
+        console.log(this.colombia)
+        console.log(this.colombia.today_new_confirmed)
+        //console.log(Object.keys(this.casosdeHoyMundo.length))
+        localStorage.setItem("pais",JSON.stringify(this.colombia))
+      }
+    )
+  }

@@ -1,0 +1,38 @@
+<ion-header>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>Cov-Inf-19</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="oscuro">
+    <ion-img [src]="noticia.urlToImage"></ion-img>
+    <ion-card-header>
+
+        <ion-card-title>{{noticia.title}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+        {{noticia.content | textFormat:40}} <a [href]="noticia.url">Ir al sitio</a>
+
+
+        <div class="ion-text-start ion-margin">
+            {{noticia.publishedAt | date:'medium'}}
+        </div>
+        <div class="ion-text-start ion-margin">
+            {{noticia.source}}
+        </div>
+
+
+        <div class="margin">
+            <h1>
+                <ion-text color="primary">
+                    Relacionados
+                </ion-text>
+            </h1>
+        </div>
+    </ion-card-content>
+
+</ion-content>
