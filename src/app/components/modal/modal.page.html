@@ -1,36 +1,34 @@
 <ion-header class="ion-no-border">
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="dismiss()">
+                <ion-icon name="arrow-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-searchbar color="oscuro" showCancelButton="never" clear-icon></ion-searchbar>
 
-    <ion-item lines="none">
-        <ion-icon color="primary" name="arrow-back-outline" (click)="dismiss()"></ion-icon>
-        <ion-searchbar showCancelButton="never" mode="ios"></ion-searchbar>
-    </ion-item>
+
+    </ion-toolbar>
+
+
 
 </ion-header>
 
+
 <ion-content>
-    <ion-list-header color="light">
-        <ion-grid>
-            <ion-row>
-                <ion-col size="6">
-                    Departamentos
-                </ion-col>
-                <ion-col size="6" class="ion-text-end">
-                    Casos
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-    </ion-list-header>
 
-    <ion-item *ngFor="let departamento of departamentos" detail>
+    <ion-item *ngFor="let item of parametro; index as i" detail color="oscuro" (click)="goToNotices(i,item.code)">
 
-
+        <ion-avatar slot="start">
+            <ion-img [src]="item.flag"></ion-img>
+        </ion-avatar>
         <ion-label>
-            <h4>{{departamento.name}}</h4>
-            <p>Hoy {{departamento.today_new_confirmed}} casos nuevos</p>
+            <h4>{{item.nativeName}}</h4>
+            <p>{{item.name}}</p>
         </ion-label>
 
         <ion-text slot="end">
-            {{departamento.today_confirmed}}
+            {{item.today_confirmed}}
         </ion-text>
 
 

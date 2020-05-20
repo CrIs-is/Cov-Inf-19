@@ -37,11 +37,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/departamento/departamento.module').then( m => m.DepartamentoPageModule)
   },
   {
-    path: 'noticias',
+    path: 'noticias/pais/:id/:code',
     loadChildren: () => import('./pages/noticias/noticias.module').then( m => m.NoticiasPageModule)
   },
   {
-    path: 'noticia/:id',
+    path: 'noticias/pais/:code/noticia/:index',
     loadChildren: () => import('./pages/noticia/noticia.module').then( m => m.NoticiaPageModule)
   },
 ];

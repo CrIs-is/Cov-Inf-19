@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NoticiasPageRoutingModule } from './noticias-routing.module';
 
 import { NoticiasPage } from './noticias.page';
+import { pipeModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NoticiasPageRoutingModule
+    NoticiasPageRoutingModule,
+    pipeModule
   ],
   declarations: [NoticiasPage]
 })

@@ -1,14 +1,28 @@
-<ion-header>
-    <ion-toolbar color="dark">
-        <div class="ion-text-center">
-            <img class="logo" src="../../../assets/logos.png" alt="">
-        </div>
-    </ion-toolbar>
-</ion-header>
+<ion-toolbar color="dark">
+
+    <ion-buttons slot="start">
+        <ion-back-button color="primary" text="" defaultHref="/home" [routerLink]="['/home']" routerLinkActive="router-link-active"></ion-back-button>
+        <ion-avatar class="ion-padding">
+            <ion-img [src]="bandera"></ion-img>
+        </ion-avatar>
+        Cov-Inf-19
+
+
+    </ion-buttons>
+    <ion-buttons slot="primary">
+        <ion-button color="primary" (click)="presentModal()">
+            <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+        <ion-button color="primary">
+            <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+
+</ion-toolbar>
 
 <ion-content color="oscuro">
     <div id="main">
-        <ion-card *ngFor="let item of data; index as i" color="dark">
+        <ion-card *ngFor="let item of data; trackBy : trackByFn; index as i" color="dark">
             <img [src]="item.urlToImage " />
             <ion-card-header>
                 <ion-card-subtitle>
@@ -17,21 +31,17 @@
                 <ion-card-title>{{item.title}}</ion-card-title>
             </ion-card-header>
             <ion-card-content>
-                {{item.description}}
-                <div class="flotante margin ion-activatable ripple-parent">
-                    <ion-buttons (click)="goToNotice(i)">
-                        <ion-button color="primary">
-                            <ion-icon name="arrow-forward-outline"></ion-icon>
-                        </ion-button>
-                    </ion-buttons>
-                    <ion-ripple-effect></ion-ripple-effect>
-                </div>
+                {{item.description | textFormat: 10}}
+                <br> {{item.publishedAt | date:'medium'}}
 
-                <div class="ion-text-start margin">
-                    {{item.publishedAt | date:'medium'}}
-                </div>
-
+                <ion-buttons class="ion-float-right">
+                    <ion-button color="primary" (click)="goToNotice(i)">
+                        <ion-icon name="eye-outline"></ion-icon>
+                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
             </ion-card-content>
+
         </ion-card>
     </div>
 

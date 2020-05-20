@@ -6,5 +6,5 @@ export interface Noticia{
     publishedAt: string,
     urlToImage: string,
     url: string,
-    source?:string
+    source?:Object
 }

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {  Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { DataService } from '../servicios/data.service';
 import * as moment from 'moment';
 import { HTTP } from '@ionic-native/http/ngx';
 import { Pais } from '../models/pais.interface';
 import { Router } from '@angular/router';
 import { Global } from '../models/global.interface';
+import { ModalPage } from '../components/modal/modal.page';
+import { banderas } from '../servicios/banderas';
+
 
 @Component({
   selector: 'app-home',
@@ -19,7 +22,11 @@ export class HomePage implements OnInit {
   public colombia:Pais;
   public global:Global;
   
-  constructor(public platform: Platform , public dataSer: DataService, public native_Http: HTTP, private router: Router) {
+  constructor(public platform: Platform , 
+    public dataSer: DataService, 
+    public native_Http: HTTP, 
+    private router: Router,
+    public modal: ModalController) {
     this.colombia =  {
       id: "",
       name: "",
@@ -42,6 +49,7 @@ export class HomePage implements OnInit {
     this.fechaActual = this.fechaActual.substr(0,10)
     console.log(this.fechaActual)
     if(this.platform.is('cordova')) {
+      this.getPais()
       this.getDNativeColombia(this.fechaActual);
       this.getDNativeGlobal(this.fechaActual)
     }
@@ -78,6 +86,24 @@ export class HomePage implements OnInit {
   }
 
 
- 
+  async presentModal() {
+    const modal = await this.modal.create({
+      component: ModalPage,
+      swipeToClose: true,
+      componentProps:{
+        "parametro":banderas
+      }
+    });
+    return await modal.present();
+  }
+
+  private data;
+  getPais(){
+    this.dataSer.getPaisesNews().subscribe(
+      (data)=>{
+       console.log(data)
+      }
+    )}
+
 
 }

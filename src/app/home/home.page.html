@@ -19,7 +19,7 @@
         <ion-card-content class="ion-activatable ">
             <div>
                 <ion-badge class="badge-new-today" color="primary"><span></span></ion-badge>
-                <ion-item color="dark" detail routerLink="/noticias">
+                <ion-item color="dark" detail (click)="presentModal()">
                     <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
                     Noticias
                     <ion-text slot="end">

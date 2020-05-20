@@ -8,7 +8,7 @@ import { NoticiaPageRoutingModule } from './noticia-routing.module';
 
 import { NoticiaPage } from './noticia.page';
 import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
-import { TextFormatPipe } from 'src/app/pipes/text-format.pipe';
+import { pipeModule } from 'src/app/pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -16,8 +16,9 @@ import { TextFormatPipe } from 'src/app/pipes/text-format.pipe';
     FormsModule,
     IonicModule,
     NoticiaPageRoutingModule,
-    IonicHeaderParallaxModule
+    IonicHeaderParallaxModule,
+    pipeModule
   ],
-  declarations: [NoticiaPage,TextFormatPipe]
+  declarations: [NoticiaPage]
 })
 export class NoticiaPageModule {}
