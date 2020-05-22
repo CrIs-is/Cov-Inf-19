@@ -30,8 +30,9 @@ export class NoticiasPage implements OnInit {
  getNoticias(code){
     this.service.getNoticesCovidColombia(code).subscribe(
       (data)=> {
-        this.data = data['articles']
-        console.log(this.data)
+        const parseTo = JSON.parse(data.data)
+        this.data = parseTo['articles']
+        //console.log()
       },
       (error)=> {
         console.log(error)

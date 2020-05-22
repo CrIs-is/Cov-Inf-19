@@ -9,6 +9,16 @@ const routes: Routes = [
     component: ColombiaPage,
     children: [
       {
+        path: 'detalles',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../colombia-details/colombia-details.module').then(m => m.ColombiaDetailsPageModule)
+          }
+        ]
+      },
+      {
         path: 'casos',
         children: [
           {

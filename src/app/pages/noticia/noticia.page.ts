@@ -54,7 +54,7 @@ export class NoticiaPage implements OnInit {
     //this.parallax.nativeElement.style.color = 'red'
     this.parallax.nativeElement.style.transform = 'translateY(' + e.detail.scrollTop * +0.4 + 'px)'
     //console.log(this.parallax)
-    e.detail.scrollTop <= 75 ? this.ocultar = 'ion-block' : this.ocultar = 'ion-hide'
+    e.detail.scrollTop <= 300 ? this.ocultar = 'ion-block' : this.ocultar = 'ion-hide'
    // console.log(this.header)
     //e.detail.scrollTop == 0 ? this.header.collapse : null
 
@@ -63,8 +63,10 @@ export class NoticiaPage implements OnInit {
   getNoticias(ref: string){
     this.service.getNoticesCovidColombia(ref).subscribe(
       (data)=> {
-        this.noticia = data['articles'][this.id]
-        this.data = data['articles']        
+        const parseTo = JSON.parse(data.data)
+        
+        this.noticia = parseTo['articles'][this.id]
+        this.data = parseTo['articles']    
         //this.removeItemFromArr(this.data,this.id)
       },
       (error)=> {

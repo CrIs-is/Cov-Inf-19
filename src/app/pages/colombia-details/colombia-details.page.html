@@ -1,0 +1,33 @@
+<ion-content color="oscuro">
+    <ion-item color="oscuro" lines="none">
+        <ion-icon slot="start" name="chevron-back-outline"></ion-icon>
+        <ion-icon slot="end" name="stats-chart-outline"></ion-icon>
+        <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+    </ion-item>
+
+    <ion-slides pager="false" [options]="sliderConfig" #slides>
+
+
+        <ion-slide>
+
+            <div class="welcome-card">
+                <ion-card-content>
+                    <canvas #canvasBar></canvas>
+                </ion-card-content>
+            </div>
+
+        </ion-slide>
+
+        <ion-slide>
+
+            <div class="welcome-card">
+                <ion-card-content>
+                    <app-graficas></app-graficas>
+                </ion-card-content>
+            </div>
+
+        </ion-slide>
+
+    </ion-slides>
+
+</ion-content>

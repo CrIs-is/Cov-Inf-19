@@ -20,13 +20,17 @@ export class DataService {
   } 
 
   getNoticesCovidColombia(code:string){
-    return this.http.get<any>(`http://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`);
+    let request =  this.nativeHttp.get(`http://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`,{},{
+      'Content-Type':'aplication/json'
+     })
+     
+     return from(request);
   }
   
   //Data de colombia
   getColombia(fecha: string) {
     let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`,{},{
-    'Conten-Type':'aplication/json'
+    'Content-Type':'aplication/json'
     });
     return from(nativeCall)
   }
@@ -46,6 +50,13 @@ export class DataService {
   getScroll(){
     const obs$ = fromEvent<MouseEvent>(document,'click')
   return obs$;
+  }
+
+  getSexo(){
+    let resp = this.nativeHttp.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`,{},{
+      'Content-Type':'aplication/json'
+    })
+    return from(resp)
   }
 
   

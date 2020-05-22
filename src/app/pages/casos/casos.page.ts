@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Pais } from '../../models/pais.interface';
 import { Chart } from 'chart.js';
+import { DataService } from '../../servicios/data.service';
 
 @Component({
   selector: 'app-casos',
@@ -11,16 +12,22 @@ export class CasosPage implements OnInit {
 
   private colombia:Pais;
   @ViewChild('canvas1', {static: true}) canvas1;
+  public fechaActual = new Date;
   bars: any;
   colorArray:any;
   departamentos:any=[];
   nombreDepartamentos;
-  constructor() { }
+  constructor(public service: DataService) { }
 
-  
+  sliderConfig = {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    centeredSlides: false,
+    //autoHeight: true
+  };
 
   ngOnInit() {
-  
+    this.createBarChart()
   }
   generateColorArray(num: number) {
     this.colorArray = [];
@@ -40,7 +47,7 @@ export class CasosPage implements OnInit {
         labels: ['r','a','s'],
         datasets: [{
           label:  'Covid-19 en colombia',
-          data: [this.colombia.today_confirmed,this.colombia.today_deaths,this.colombia.today_recovered],
+          data: [45,52,58],
           backgroundColor: ['#4285F4','#ff4444','#00C851'],
           borderColor: ['#4285F4','#ff4444','#00C851'],
           borderWidth: 1,
@@ -65,12 +72,10 @@ export class CasosPage implements OnInit {
     });
   }
 
-  sliderConfig = {
-    slidesPerView: 1,
-    spaceBetween: 0,
-    centeredSlides: false,
-    autoHeight: true
-  };
+  getData(fecha: string){
+    this.service.getColombia(fecha).subscribe(console.log)
+  }
+
 
 
 }

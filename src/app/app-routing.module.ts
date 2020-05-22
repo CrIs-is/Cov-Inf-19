@@ -44,6 +44,10 @@ const routes: Routes = [
     path: 'noticias/pais/:code/noticia/:index',
     loadChildren: () => import('./pages/noticia/noticia.module').then( m => m.NoticiaPageModule)
   },
+  {
+    path: 'colombia-details',
+    loadChildren: () => import('./pages/colombia-details/colombia-details.module').then( m => m.ColombiaDetailsPageModule)
+  },
 ];
 
 @NgModule({

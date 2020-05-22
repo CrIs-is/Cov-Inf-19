@@ -82,9 +82,8 @@ export class HomePage implements OnInit {
   }
 
   goToColombia(){
-    this.router.navigate([`/colombia/casos`])
+    this.router.navigate([`/colombia/detalles`])
   }
-
 
   async presentModal() {
     const modal = await this.modal.create({

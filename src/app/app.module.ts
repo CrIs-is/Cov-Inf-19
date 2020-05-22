@@ -20,9 +20,10 @@ import { HTTP } from '@ionic-native/http/ngx';
 import { ModalPage } from './components/modal/modal.page';
 import { FindDepPipe } from './pipes/find-dep.pipe';
 
+
 import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
 import { ParallaxHeaderDirective } from './directives/parallax-header.directive';
-
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 library.add(faCoffee)
 
 @NgModule({
@@ -39,6 +40,7 @@ library.add(faCoffee)
     StatusBar,
     SplashScreen,
     DataService,
+    ScreenOrientation,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP
   ],

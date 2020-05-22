@@ -4,6 +4,7 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { Chart } from 'chart.js';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,8 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+        Chart.defaults.global.defaultFontColor = 'white';
+      // Chart.defaults.global.hover.mode = 'nearest';
     });
   }
 }

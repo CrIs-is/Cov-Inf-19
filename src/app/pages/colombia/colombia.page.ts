@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalPage } from '../../components/modal/modal.page';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DataService } from '../../servicios/data.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Pais } from '../../models/pais.interface';
 import * as moment from 'moment';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+
+
 
 
 @Component({
@@ -15,10 +17,17 @@ import * as moment from 'moment';
 export class ColombiaPage implements OnInit {
 
   public fechaActual =  moment().format();
+  @ViewChild('header',{static: true}) header;
+  @ViewChild('tabs',{static: true}) tabs;
 
   public colombia:Pais;
+ 
+ 
   
-  constructor(private router: Router,public modalController: ModalController,private service : DataService,private rutasAc: ActivatedRoute) {
+  constructor(private router: Router,
+    public modalController: ModalController,
+    private screenOrientation: ScreenOrientation) {
+
     this.fechaActual = this.fechaActual.substr(0,10)
     this.colombia =  {
       id: "",
@@ -32,33 +41,30 @@ export class ColombiaPage implements OnInit {
    }
 
   ngOnInit() {
-    this.getDNativeColombia(this.fechaActual)
+    //this.getDNativeColombia(this.fechaActual)
+    this.pantalla()
   }
 
-  getDNativeColombia(fecha: string){
-    this.service.getColombia(fecha).subscribe(
-      (data)=>{
-        const resp = JSON.parse(data.data)
-        this.colombia = resp['dates'][fecha]['countries']['Colombia']
-        console.log(this.colombia)
-      },
-      (error)=>{
-        console.log(error)
-      },()=>{
-        console.log("GetDataColombia finalizado")
-      }
-    )
-  }
+  //Detectando rotacion de pantalla
+  pantalla() {
+    this.screenOrientation.onChange().subscribe(
+      () => {
+        if (this.screenOrientation.type === "landscape-secondary") {
+          console.log("Orientation Changed a hoorizontal");
+          this.header.el.style.display = "none"
+          this.tabs.el.style.display = "none"
+          
+          
+        }
+        else{
+          this.header.el.style.display = "block"
+          this.tabs.el.style.display = ""
+          console.log("Vertical");
+          console.log(this.tabs)
 
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: ModalPage,
-      swipeToClose: true,
-      componentProps:{
-        "departamentos":this.colombia.regions
-      }
-    });
-    return await modal.present();
+          
+        }
+      });
   }
 
   
