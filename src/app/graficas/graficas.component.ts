@@ -21,7 +21,11 @@ export class GraficasComponent implements OnInit {
   ngOnInit() {
     //let ctx = this.canvas1.nativeElement;
     //ctx.height = 350;
-    this.getDought();
+    setTimeout(()=>{
+      this.getDought();
+    },4000)
+    
+    console.log("params",this.labels,this.data)
   }
 
   getDought(){
@@ -31,10 +35,10 @@ export class GraficasComponent implements OnInit {
       type: 'doughnut',
       defaultFontSize	: 45,
       data: {
-        labels: ['M','F'],
+        labels: this.labels,
         datasets: [{
           label:  'Covid-19 en colombia',
-          data: [5,4],
+          data: this.data,
           backgroundColor: ['#0275d8', '#d83966'],
           borderColor: ['#0275d8', '#d83966'],
           borderWidth: 1,

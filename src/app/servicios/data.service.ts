@@ -33,6 +33,7 @@ export class DataService {
     'Content-Type':'aplication/json'
     });
     return from(nativeCall)
+    /*return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`)*/
   }
 
   //Data del mundo
@@ -49,14 +50,15 @@ export class DataService {
 
   getScroll(){
     const obs$ = fromEvent<MouseEvent>(document,'click')
-  return obs$;
+    return obs$;
   }
 
   getSexo(){
-    let resp = this.nativeHttp.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`,{},{
+  let resp = this.nativeHttp.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`,{},{
       'Content-Type':'aplication/json'
     })
     return from(resp)
+     /* return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
   }
 
   

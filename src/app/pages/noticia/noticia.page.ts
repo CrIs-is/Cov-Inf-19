@@ -24,7 +24,7 @@ export class NoticiaPage implements OnInit {
   //public header
   
   @ViewChild('parallax', {static: true}) parallax:ElementRef; 
-  @ViewChild('header', {static: true}) public header:ElementRef;
+  @ViewChild('header', {static: true})  header;
   private configSlide = slideOpts
 
   constructor(public ruta: ActivatedRoute, public service: DataService,public router:Router) { 
@@ -51,7 +51,7 @@ export class NoticiaPage implements OnInit {
   }
 
   scroll(e){
-    //this.parallax.nativeElement.style.color = 'red'
+    //this.header.el.style.color = 'red'
     this.parallax.nativeElement.style.transform = 'translateY(' + e.detail.scrollTop * +0.4 + 'px)'
     //console.log(this.parallax)
     e.detail.scrollTop <= 300 ? this.ocultar = 'ion-block' : this.ocultar = 'ion-hide'

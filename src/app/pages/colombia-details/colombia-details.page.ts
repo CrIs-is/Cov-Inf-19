@@ -3,6 +3,7 @@ import { Pais } from 'src/app/models/pais.interface';
 import { DataService } from '../../servicios/data.service';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
+import {  IonSlides, IonSegment } from '@ionic/angular';
 
 @Component({
   selector: 'app-colombia-details',
@@ -20,19 +21,26 @@ export class ColombiaDetailsPage implements OnInit {
 
   private colombia:Pais;
   @ViewChild('canvasBar', {static: true}) canvas1;
+  @ViewChild('slides', {static: true}) slides:IonSlides;
+  //@ViewChild('segment', {static: true}) segment:IonSegment;
   public fechaActual =  moment().format();
 
   bars: any;
   colorArray:any;
-  
- public hombres;
- public mujeres;
-  constructor( private service: DataService) { }
+  segmento:any;
+
+ public sexo;
+ public sexoL:Array<any> = [];
+ public sexoD:Array<any> = [];;
+ 
+  constructor( private service: DataService) {
+      this.getSexo()
+   }
 
   ngOnInit() {
     this.fechaActual = this.fechaActual.substr(0,10)
     this.getData(this.fechaActual)
-    this.getHombres();
+    
     //this.createBarChart()
   }
   generateColorArray(num: number) {
@@ -84,19 +92,44 @@ export class ColombiaDetailsPage implements OnInit {
       const resp = JSON.parse(data.data)
       this.colombia = resp['dates'][fecha]['countries']['Colombia']
       //console.log(this.colombia.today_confirmed)
+      console.log(this.colombia)
       this.createBarChart()
     })
   }
 
-  getHombres(){
+  getSexo(){
     this.service.getSexo().subscribe(
       (data)=>{
-        let res = JSON.parse(data.data)
-        this.hombres = res['meta']['view']['columns'][15]['cachedContents']['top'][0]
-        this.mujeres = res['meta']['view']['columns'][15]['cachedContents']['top'][1]
-        
+        let res = JSON.parse(data.data)        
+        this.sexo = res['meta']['view']['columns'][15]['cachedContents']['top']
+        //console.log(this.sexo)
+       for(let label of this.sexo){
+         this.sexoL.push(label.item)
+         this.sexoD.push(label.count)
+       }
+       //console.log(this.sexoL)
+       //console.log(this.sexoD)
       }
     )
   }
 
+  slidesEvent(event){
+    console.log(event)
+  }
+
+  slideSiguiente(){
+    this.slides.slideNext(2000)
+  }
+
+  slideAnterior(){
+    this.slides.slidePrev(2000)
+  }
+
+  segmentChanged(evento){
+    this.segmento = evento.detail.value
+    console.log(this.segmento)
+    if (this.segmento == "standart") {
+      console.log("kdoadk")
+    }
+  }
 }
