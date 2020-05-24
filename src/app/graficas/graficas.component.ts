@@ -21,17 +21,17 @@ export class GraficasComponent implements OnInit {
   ngOnInit() {
     //let ctx = this.canvas1.nativeElement;
     //ctx.height = 350;
-    setTimeout(()=>{
+  
       this.getDought();
-    },4000)
+    
     
     console.log("params",this.labels,this.data)
   }
 
   getDought(){
-    let ctd = this.canvas.nativeElement;
-    ctd.height = 350;
-    this.barss = new Chart(ctd, {
+    //let ctd = this.canvas.nativeElement;
+    //ctd.height = 350;
+    this.barss = new Chart(this.canvas.nativeElement, {
       type: 'doughnut',
       defaultFontSize	: 45,
       data: {

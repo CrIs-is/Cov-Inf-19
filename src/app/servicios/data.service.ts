@@ -61,5 +61,12 @@ export class DataService {
      /* return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
   }
 
+  getDates(){
+    const request = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/country/colombia?date_from=2020-03-20&date_to=2020-05-22`,{},{
+      'Content-Type':'aplication/json'
+    });
+
+    return from(request)
+  }
   
 }

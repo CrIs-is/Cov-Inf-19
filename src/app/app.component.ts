@@ -26,6 +26,7 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
         Chart.defaults.global.defaultFontColor = 'white';
+        Chart.defaults.global.defaultFontSize	 = 9;
       // Chart.defaults.global.hover.mode = 'nearest';
     });
   }

@@ -27,15 +27,20 @@ export class HomePage implements OnInit {
     public native_Http: HTTP, 
     private router: Router,
     public modal: ModalController) {
-    this.colombia =  {
-      id: "",
-      name: "",
-      today_confirmed: null,
-      today_new_confirmed: null,
-      regions: null,
-      today_deaths: null,
-      today_recovered: null
-    };
+      this.colombia = {
+        today_confirmed:null,
+        id:'',
+        name:'',
+        regions:[],
+        today_deaths:0,
+        today_new_confirmed: null,
+        today_new_recovered:0,
+        today_new_deaths:0,
+        today_recovered:0,
+        yesterday_confirmed:0,
+        yesterday_deaths:0,
+        yesterday_recovered:0,
+      }
 
     this.global =  {
       

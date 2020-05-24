@@ -22,20 +22,21 @@
 
 
         <ion-slide>
+            <ion-buttons>
+                <ion-button (click)="updateChart()">
+                    <ion-icon name="reload-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
 
             <div class="welcome-card">
-                <ion-card-content>
-                    <canvas #canvasBar></canvas>
-                </ion-card-content>
+                <canvas #canvasBar></canvas>
             </div>
             <ion-list-header>
                 <ion-segment #segment (ionChange)="segmentChanged($event)" value="standart">
                     <ion-segment-button value="standart">
-                        <ion-label color="light">Resultados</ion-label>
+                        <ion-label color="primary">Total</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="today">
-                        <ion-label color="light">Hoy</ion-label>
-                    </ion-segment-button>
+
                 </ion-segment>
             </ion-list-header>
 
@@ -62,32 +63,97 @@
                 <ion-item color="oscuro">
                     <ion-icon slot="start" name="skull-outline"></ion-icon>
                     Muertes
-
                     <ion-label slot="end">
                         <div class="ion-text-center">{{colombia.today_deaths}}</div>
+                    </ion-label>
+                </ion-item>
+            </div>
+
+            <ion-list-header>
+                <ion-segment #segment (ionChange)="segmentChanged($event)" value="standart">
+                    <ion-segment-button value="standart">
+                        <ion-label color="primary">Hoy</ion-label>
+                    </ion-segment-button>
+
+                </ion-segment>
+            </ion-list-header>
+
+            <div *ngIf="segmento == 'standart'">
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                    Casos
+
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.today_new_confirmed}} </div>
+                    </ion-label>
+
+                </ion-item>
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="pulse-outline"></ion-icon>
+                    Recuperados
+
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.today_new_recovered}}</div>
                     </ion-label>
 
 
                 </ion-item>
-            </div>
-            <div *ngIf="segmento == 'today'">
-                <ion-item>
-                    csacscsa
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="skull-outline"></ion-icon>
+                    Muertes
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.today_new_deaths}}</div>
+                    </ion-label>
                 </ion-item>
             </div>
 
 
-        </ion-slide>
+            <ion-list-header>
+                <ion-segment #segment (ionChange)="segmentChanged($event)" value="standart">
+                    <ion-segment-button value="standart">
+                        <ion-label color="primary">Ayer</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-list-header>
 
-        <ion-slide>
+            <div *ngIf="segmento == 'standart'">
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+                    Casos
 
-            <div class="welcome-card">
-                <ion-card-content>
-                    <app-graficas [labels]="sexoL" [data]="sexoD"></app-graficas>
-                </ion-card-content>
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.yesterday_confirmed}} </div>
+                    </ion-label>
+
+                </ion-item>
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="pulse-outline"></ion-icon>
+                    Recuperados
+
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.yesterday_recovered}}</div>
+                    </ion-label>
+
+
+                </ion-item>
+                <ion-item color="oscuro">
+                    <ion-icon slot="start" name="skull-outline"></ion-icon>
+                    Muertes
+                    <ion-label slot="end">
+                        <div class="ion-text-center">{{colombia.yesterday_deaths}}</div>
+                    </ion-label>
+                </ion-item>
             </div>
 
         </ion-slide>
+
+        <ion-slide>
+            line
+            <div class="welcome-card">
+                <canvas #lineChart></canvas>
+            </div>
+        </ion-slide>
+
 
     </ion-slides>
 

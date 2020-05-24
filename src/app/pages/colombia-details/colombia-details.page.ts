@@ -3,7 +3,7 @@ import { Pais } from 'src/app/models/pais.interface';
 import { DataService } from '../../servicios/data.service';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
-import {  IonSlides, IonSegment } from '@ionic/angular';
+import {  IonSlides, LoadingController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-colombia-details',
@@ -12,6 +12,7 @@ import {  IonSlides, IonSegment } from '@ionic/angular';
 })
 export class ColombiaDetailsPage implements OnInit {
 
+  //Option Slides
   sliderConfig = {
     slidesPerView: 1,
     spaceBetween: 0,
@@ -20,29 +21,49 @@ export class ColombiaDetailsPage implements OnInit {
   };
 
   private colombia:Pais;
+
+  //Charts References
   @ViewChild('canvasBar', {static: true}) canvas1;
+  @ViewChild('lineChart', {static: true}) lineChart;
   @ViewChild('slides', {static: true}) slides:IonSlides;
-  //@ViewChild('segment', {static: true}) segment:IonSegment;
+ 
   public fechaActual =  moment().format();
 
+  //Charts
   bars: any;
+  line: any
   colorArray:any;
-  segmento:any;
+  segmento:string='standart';
+  private spinner;
 
- public sexo;
- public sexoL:Array<any> = [];
- public sexoD:Array<any> = [];;
- 
-  constructor( private service: DataService) {
-      this.getSexo()
-   }
+  constructor( private service: DataService, private loadingController: LoadingController,public toastController: ToastController) {
+    this.presentLoading();
+      this.colombia = {
+        today_confirmed:0,
+        id:'',
+        name:'',
+        regions:[],
+        today_deaths:0,
+        today_new_confirmed:0,
+        today_new_recovered:0,
+        today_new_deaths:0,
+        today_recovered:0,
+        yesterday_confirmed:0,
+        yesterday_deaths:0,
+        yesterday_recovered:0,
+      }
+  }
 
   ngOnInit() {
-    this.fechaActual = this.fechaActual.substr(0,10)
-    this.getData(this.fechaActual)
+    
+    this.fechaActual = this.fechaActual.substr(0,10);
+    this.getData(this.fechaActual);
+    this.getDates()
     
     //this.createBarChart()
   }
+
+  //Charts
   generateColorArray(num: number) {
     this.colorArray = [];
     for (let i = 0; i < num; i++) {
@@ -51,7 +72,6 @@ export class ColombiaDetailsPage implements OnInit {
   }
 
   createBarChart() {
-    
     let ctx = this.canvas1.nativeElement;
     ctx.height = 350;
     this.bars = new Chart(ctx, {
@@ -86,35 +106,81 @@ export class ColombiaDetailsPage implements OnInit {
     });
   }
 
+  createLineChart() {
+    let ctx = this.lineChart.nativeElement
+    ctx.height = 350
+    this.line = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Marzo', 'Abril', 'Mayo'],
+        datasets: [{
+          label: 'Casos',
+          data: [2.5, 3.8, 5,],
+          backgroundColor: 'rgb(242, 38, 19)',
+          borderColor: 'rgb(242, 38, 19)',
+          borderWidth: 1
+        },
+        {
+          label: 'Recuperados',
+          data: [1.5, 2.8, 3, 4.9, 4.9, 5.5, 7, 12],
+          backgroundColor: 'rgb(38, 194, 129)',
+          borderColor: 'rgb(38, 194, 129)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            },
+            stacked: true
+          }]
+        }
+      }
+    });
+
+  }
+
+  updateChart(){
+    this.bars.update();
+    this.presentToast()
+  }
+
+  //Data
   getData(fecha: string){
     this.service.getColombia(fecha).subscribe(
     (data)=>{
       const resp = JSON.parse(data.data)
       this.colombia = resp['dates'][fecha]['countries']['Colombia']
       //console.log(this.colombia.today_confirmed)
-      console.log(this.colombia)
+      //console.log(this.colombia)
+    },
+    (error)=>{
+      console.log(error)
+    },
+    ()=>{
+      
       this.createBarChart()
+      this.createLineChart() 
+      this.spinner.dismiss();
+      
     })
   }
 
-  getSexo(){
-    this.service.getSexo().subscribe(
+  getDates(){
+    this.service.getDates().subscribe(
       (data)=>{
-        let res = JSON.parse(data.data)        
-        this.sexo = res['meta']['view']['columns'][15]['cachedContents']['top']
-        //console.log(this.sexo)
-       for(let label of this.sexo){
-         this.sexoL.push(label.item)
-         this.sexoD.push(label.count)
-       }
-       //console.log(this.sexoL)
-       //console.log(this.sexoD)
+        let res = JSON.parse(data.data)
+
+        console.log(res.dates['2020-03-10'])
       }
     )
   }
 
+  //Slide interaction
   slidesEvent(event){
-    console.log(event)
+    //console.log(event)
   }
 
   slideSiguiente(){
@@ -127,9 +193,29 @@ export class ColombiaDetailsPage implements OnInit {
 
   segmentChanged(evento){
     this.segmento = evento.detail.value
-    console.log(this.segmento)
-    if (this.segmento == "standart") {
-      console.log("kdoadk")
-    }
+    
   }
+
+  
+  //Components 
+  async presentLoading() {
+    this.spinner = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Actualizando información',
+      duration: 3000
+    });
+     this.spinner.present();
+
+    //const { role, data } = await this.spinner.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'Grafica Actualizada.',
+      duration: 3000
+    });
+    toast.present();
+  }
+  
 }
