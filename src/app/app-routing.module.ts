@@ -37,13 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/departamento/departamento.module').then( m => m.DepartamentoPageModule)
   },
   {
-    path: 'noticias/pais/:id/:code',
+    path: 'noticias',
     loadChildren: () => import('./pages/noticias/noticias.module').then( m => m.NoticiasPageModule)
   },
-  {
-    path: 'noticias/pais/:code/noticia/:index',
-    loadChildren: () => import('./pages/noticia/noticia.module').then( m => m.NoticiaPageModule)
-  },
+  
   {
     path: 'colombia-details',
     loadChildren: () => import('./pages/colombia-details/colombia-details.module').then( m => m.ColombiaDetailsPageModule)

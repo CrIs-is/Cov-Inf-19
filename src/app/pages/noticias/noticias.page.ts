@@ -4,7 +4,7 @@ import { Noticia } from '../../models/noticia.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { banderas } from '../../servicios/banderas';
 import { ModalPage } from 'src/app/components/modal/modal.page';
-import { ModalController } from '@ionic/angular';
+import { ModalController, IonRouterOutlet } from '@ionic/angular';
 
 @Component({
   selector: 'app-noticias',
@@ -13,22 +13,19 @@ import { ModalController } from '@ionic/angular';
 })
 export class NoticiasPage implements OnInit {
 
-  private bandera;
-  private code;
-  private data : Noticia[] =null;
-  constructor(private service: DataService, private ruta: Router,public ActRoute: ActivatedRoute, private modal: ModalController) { 
-    this.code = this.ActRoute.snapshot.params.code
+  private data : Noticia[] = null;
+
+  constructor(private routerOutlet: IonRouterOutlet, private service: DataService, private ruta: Router,public ActRoute: ActivatedRoute, private modal: ModalController) { 
+  
   }
 
   ngOnInit() {
-    this.getNoticias(this.code)
-    const id = this.ActRoute.snapshot.params.id
-    this.bandera = banderas[id].flag
+    this.getNoticias();
   }
 
  
- getNoticias(code){
-    this.service.getNoticesCovidColombia(code).subscribe(
+ getNoticias(){
+    this.service.getNoticesCovidColombia().subscribe(
       (data)=> {
         const parseTo = JSON.parse(data.data)
         this.data = parseTo['articles']
@@ -43,7 +40,7 @@ export class NoticiasPage implements OnInit {
 
   goToNotice(index: number){
     console.log(index)
-    this.ruta.navigate([`noticias/pais/${this.code}/noticia/${index}`])
+    
   }
 
   trackByFn(index: number,noticia:Noticia){
@@ -55,17 +52,18 @@ export class NoticiasPage implements OnInit {
       i !== -1 && this.data.splice( i, 1 );
   }
 
-  async presentModal() {
+  async presentModal(index) {
     const modal = await this.modal.create({
       component: ModalPage,
+      cssClass: 'animate__animated animate__fadeInUpBig',
       swipeToClose: true,
-      componentProps:{
-        "parametro":banderas
+      presentingElement: this.routerOutlet.nativeEl,
+      componentProps: {
+        'id': index,
       }
     });
     return await modal.present();
   }
-
  
 
 }

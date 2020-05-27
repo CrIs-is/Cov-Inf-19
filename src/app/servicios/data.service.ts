@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Platform, AlertController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
-import { from, fromEvent } from 'rxjs';
+import { from, fromEvent, forkJoin, of } from 'rxjs';
 import { banderas } from './banderas';
 
 
@@ -19,8 +19,8 @@ export class DataService {
     
   } 
 
-  getNoticesCovidColombia(code:string){
-    let request =  this.nativeHttp.get(`http://newsapi.org/v2/top-headlines?country=${code}&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`,{},{
+  getNoticesCovidColombia(){
+    let request =  this.nativeHttp.get(`http://newsapi.org/v2/top-headlines?country=co&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`,{},{
       'Content-Type':'aplication/json'
      })
      
@@ -61,12 +61,23 @@ export class DataService {
      /* return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
   }
 
-  getDates(){
-    const request = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/country/colombia?date_from=2020-03-20&date_to=2020-05-22`,{},{
+  getMayo(){
+    const mayo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-05-24/country/colombia`,{},{
       'Content-Type':'aplication/json'
     });
-
-    return from(request)
+    return from(mayo)   
+  }
+  getAbril(){
+    const abril = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-04-30/country/colombia`,{},{
+      'Content-Type':'aplication/json'
+    });
+    return from(abril)
+  }
+  getMarzo(){
+    const marzo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-03-31/country/colombia`,{},{
+      'Content-Type':'aplication/json'
+    });
+    return from(marzo)
   }
   
 }

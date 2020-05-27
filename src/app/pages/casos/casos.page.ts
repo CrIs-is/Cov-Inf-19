@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { DataService } from '../../servicios/data.service';
 import * as moment from 'moment';
 import { Departamento } from 'src/app/models/departamento.interface';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, IonSlides } from '@ionic/angular';
 
 @Component({
   selector: 'app-casos',
@@ -15,6 +15,7 @@ export class CasosPage implements OnInit {
 
   
   @ViewChild('canvas2', {static: true}) canvas2;
+  @ViewChild('slide', {static: true}) slide: IonSlides;
   public fechaActual =  moment().format();
   bars: any;
   colorArray:any;
@@ -106,7 +107,7 @@ export class CasosPage implements OnInit {
         ()=>{
           this.createBarChart()
           console.log("Complete")
-          this.spinner.dismiss();
+          //this.spinner.dismiss();
         }
     )
   }
@@ -132,12 +133,19 @@ export class CasosPage implements OnInit {
     this.spinner = await  this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Actualizando información',
-      //duration: 10000
+      duration: 3000
     });
     await this.spinner.present();
 
     const { role, data } = await this.spinner.onDidDismiss();
     console.log('Loading dismissed!');
+  }
+
+  slideNext(){
+    this.slide.slideNext(2000);
+  }
+  slidePrevius(){
+    this.slide.slidePrev(2000);
   }
 
 

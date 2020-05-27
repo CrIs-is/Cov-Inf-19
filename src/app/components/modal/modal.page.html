@@ -1,38 +1,108 @@
-<ion-header class="ion-no-border">
-    <ion-toolbar color="dark">
-        <ion-buttons slot="start">
-            <ion-button color="primary" (click)="dismiss()">
-                <ion-icon name="arrow-back-outline"></ion-icon>
-            </ion-button>
-        </ion-buttons>
-        <ion-searchbar color="oscuro" showCancelButton="never" clear-icon></ion-searchbar>
+<ion-toolbar color="dark">
+
+    <ion-buttons slot="end" color="dark">
+        <ion-button color="primary" (click)="dismiss()">
+            <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+        </ion-button>
 
 
-    </ion-toolbar>
+    </ion-buttons>
 
 
+    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="person"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-toolbar>
+<ion-content fullscreen color="oscuro" padding>
+    <div *ngIf="noticia == null">
+        <div *ngFor="let a of [1,2,3,4,5,6,7,8,9]">
+            <div class="ion-padding custom-skeleton">
+                <ion-skeleton-text animated style="width: 100%; height: 170px" slot="start"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 40%; height:20px"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%; height:20px"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%; height:20px"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 20%; height:20px"></ion-skeleton-text>
+            </div>
+        </div>
+    </div>
+    <div>
 
-</ion-header>
+        <div>
+            <img [src]="noticia.urlToImage" />
+        </div>
+
+    </div>
+
+    <div>
+        <ion-card-header>
+            <ion-card-title>
+                {{noticia.title}}
+            </ion-card-title>
+
+        </ion-card-header>
+        <ion-card-content>
+            {{noticia.description}}
+            <br> {{noticia.content}} <a [href]="noticia.url">Ir al sitio</a>
+
+            <div class="ion-text-start ion-margin">
+                <ion-label color="primary">
+                    {{noticia.publishedAt | date:'medium'}}
+                </ion-label>
+
+            </div>
+            <div class="ion-text-start ion-margin">
+                <ion-label color="primary">
+                    {{noticia.source.name}}
+                </ion-label>
+
+            </div>
 
 
-<ion-content>
-
-    <ion-item *ngFor="let item of parametro; index as i" detail color="oscuro" (click)="goToNotices(i,item.code)">
-
-        <ion-avatar slot="start">
-            <ion-img [src]="item.flag"></ion-img>
-        </ion-avatar>
-        <ion-label>
-            <h4>{{item.nativeName}}</h4>
-            <p>{{item.name}}</p>
-        </ion-label>
-
-        <ion-text slot="end">
-            {{item.today_confirmed}}
-        </ion-text>
-
-
-    </ion-item>
+        </ion-card-content>
+    </div>
 
 
 </ion-content>
+
+<!--<ion-content padding [scrollEvents]="true" (ionScroll)="scroll($event)">
+
+
+    <div class="principal">
+        l¿Qué es Lorem Ipsum? Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)
+        desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual
+        al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem
+        Ipsum. ¿Por qué lo usamos? Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal
+        de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto
+        por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras
+        veces a propósito (por ejemplo insertándole humor y cosas por el estilo).
+
+
+
+        <section class="contenedor">
+            <div class="parallax">
+                <img src="../../../assets/colombia.png">
+            </div>
+            <h1 class="titulo">
+                Paralax
+            </h1>
+
+        </section>
+
+
+        ¿Qué es Lorem Ipsum? Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta)
+        desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual
+        al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem
+        Ipsum. ¿Por qué lo usamos? Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución más o menos normal
+        de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores de páginas web usan el Lorem Ipsum como su texto
+        por defecto, y al hacer una búsqueda de "Lorem Ipsum" va a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas versiones han evolucionado a través de los años, algunas veces por accidente, otras
+        veces a propósito (por ejemplo insertándole humor y cosas por el estilo).
+
+
+
+
+    </div>
+
+
+</ion-content>-->

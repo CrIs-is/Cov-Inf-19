@@ -4,6 +4,7 @@ import { DataService } from '../../servicios/data.service';
 import { Chart } from 'chart.js';
 import * as moment from 'moment';
 import {  IonSlides, LoadingController, ToastController } from '@ionic/angular';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-colombia-details',
@@ -25,6 +26,7 @@ export class ColombiaDetailsPage implements OnInit {
   //Charts References
   @ViewChild('canvasBar', {static: true}) canvas1;
   @ViewChild('lineChart', {static: true}) lineChart;
+  @ViewChild('lineChart2', {static: true}) lineChart2;
   @ViewChild('slides', {static: true}) slides:IonSlides;
  
   public fechaActual =  moment().format();
@@ -34,6 +36,11 @@ export class ColombiaDetailsPage implements OnInit {
   line: any
   colorArray:any;
   segmento:string='standart';
+
+ 
+  public mesesDConfirmed:Array<any> = [];
+  public mesesDRecovered:Array<any> = [];
+  public mesesDDeaths:Array<any> = [];
   private spinner;
 
   constructor( private service: DataService, private loadingController: LoadingController,public toastController: ToastController) {
@@ -112,21 +119,30 @@ export class ColombiaDetailsPage implements OnInit {
     this.line = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Marzo', 'Abril', 'Mayo'],
-        datasets: [{
+        labels: ['Mayo','Abril','Marzo'],
+        datasets: [
+          {
+            label: 'Muertes',
+            data: this.mesesDDeaths,
+            backgroundColor: '#ff4444',
+            borderColor: '#ff4444',
+            borderWidth: 1
+          },
+          {
+            label: 'Recuperados',
+            data: this.mesesDRecovered,
+            backgroundColor: 'rgb(38, 194, 129)',
+            borderColor: 'rgb(38, 194, 129)',
+            borderWidth: 1
+          },
+          {
           label: 'Casos',
-          data: [2.5, 3.8, 5,],
-          backgroundColor: 'rgb(242, 38, 19)',
-          borderColor: 'rgb(242, 38, 19)',
+          data: this.mesesDConfirmed,
+          backgroundColor: '#4285F4',
+          borderColor: '#4285F4',
           borderWidth: 1
-        },
-        {
-          label: 'Recuperados',
-          data: [1.5, 2.8, 3, 4.9, 4.9, 5.5, 7, 12],
-          backgroundColor: 'rgb(38, 194, 129)',
-          borderColor: 'rgb(38, 194, 129)',
-          borderWidth: 1
-        }]
+        }
+       ]
       },
       options: {
         scales: {
@@ -140,6 +156,29 @@ export class ColombiaDetailsPage implements OnInit {
       }
     });
 
+  }
+
+  chartDon(){
+    let ctx = this.lineChart2.nativeElement
+    ctx.height = 350
+    this.line = new Chart(ctx, {
+      type: 'horizontalBar',
+      data: {
+        labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+        datasets: [{
+            data: [20, 10, 4, 2]
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            },
+            stacked: true
+          }]
+        }
+      }})
   }
 
   updateChart(){
@@ -160,22 +199,37 @@ export class ColombiaDetailsPage implements OnInit {
       console.log(error)
     },
     ()=>{
-      
+      this.chartDon()
       this.createBarChart()
-      this.createLineChart() 
+     // this.createLineChart() 
       this.spinner.dismiss();
       
     })
   }
 
   getDates(){
-    this.service.getDates().subscribe(
-      (data)=>{
-        let res = JSON.parse(data.data)
+   forkJoin(
+     this.service.getMayo(),this.service.getAbril(),this.service.getMarzo()
+   ).subscribe(
+     (data)=>{
+       let mayo = JSON.parse(data[0].data)
+       let abril = JSON.parse(data[1].data)
+       let marzo = JSON.parse(data[2].data)
 
-        console.log(res.dates['2020-03-10'])
-      }
-    )
+       this.mesesDConfirmed.push(mayo.dates[this.fechaActual].countries.Colombia.today_confirmed)
+       this.mesesDConfirmed.push(abril.dates['2020-04-30'].countries.Colombia.today_confirmed)
+       this.mesesDConfirmed.push(marzo.dates['2020-03-31'].countries.Colombia.today_confirmed)
+
+       this.mesesDRecovered.push(mayo.dates[this.fechaActual].countries.Colombia.today_recovered)
+       this.mesesDRecovered.push(abril.dates['2020-04-30'].countries.Colombia.today_recovered)
+       this.mesesDRecovered.push(marzo.dates['2020-03-31'].countries.Colombia.today_recovered)
+
+       this.mesesDDeaths.push(mayo.dates[this.fechaActual].countries.Colombia.today_deaths)
+       this.mesesDDeaths.push(abril.dates['2020-04-30'].countries.Colombia.today_deaths)
+       this.mesesDDeaths.push(marzo.dates['2020-03-31'].countries.Colombia.today_deaths)
+     },error => console.log,
+     () => this.createLineChart()
+   )
   }
 
   //Slide interaction
@@ -196,7 +250,6 @@ export class ColombiaDetailsPage implements OnInit {
     
   }
 
-  
   //Components 
   async presentLoading() {
     this.spinner = await this.loadingController.create({
@@ -217,5 +270,7 @@ export class ColombiaDetailsPage implements OnInit {
     });
     toast.present();
   }
+
+  
   
 }

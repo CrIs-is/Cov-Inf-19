@@ -1,22 +1,13 @@
 <ion-toolbar color="dark">
 
     <ion-buttons slot="start">
-        <ion-back-button color="primary" text="" defaultHref="/home" [routerLink]="['/home']" routerLinkActive="router-link-active"></ion-back-button>
-        <ion-avatar class="ion-padding">
-            <ion-img [src]="bandera"></ion-img>
-        </ion-avatar>
-        Cov-Inf-19
+        <ion-back-button color="primary" text="" defaultHref="/home"></ion-back-button>
 
+        <ion-img class="logo" src="../../../assets/logoff.png"></ion-img>
 
+        <ion-title size="small">Cov-Inf-19</ion-title>
     </ion-buttons>
-    <ion-buttons slot="primary">
-        <ion-button color="primary" (click)="presentModal()">
-            <ion-icon slot="icon-only" name="search"></ion-icon>
-        </ion-button>
-        <ion-button color="primary">
-            <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
-        </ion-button>
-    </ion-buttons>
+
 
 </ion-toolbar>
 
@@ -25,22 +16,31 @@
         <ion-card *ngFor="let item of data; trackBy : trackByFn; index as i" color="dark">
             <img [src]="item.urlToImage " />
             <ion-card-header>
-                <ion-card-subtitle>
-                    {{item.author}}
-                </ion-card-subtitle>
+
                 <ion-card-title>{{item.title}}</ion-card-title>
+                <ion-card-subtitle>
+
+                    <ion-label color="primary">
+                        {{item.author}}
+                    </ion-label>
+
+                </ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                {{item.description | textFormat: 10}}
-                <br> {{item.publishedAt | date:'medium'}}
+                <div class="hr"> </div>
+                <ion-toolbar color="dark">
+                    {{item.publishedAt | date:'medium'}}
+                    <ion-buttons slot="secondary">
+                        <ion-button color="primary" (click)="presentModal(i)">
+                            <ion-icon slot="icon-only" name="expand-outline"></ion-icon>
+                        </ion-button>
 
-                <ion-buttons class="ion-float-right">
-                    <ion-button color="primary" (click)="goToNotice(i)">
-                        <ion-icon name="eye-outline"></ion-icon>
-                        <ion-icon name="arrow-forward-outline"></ion-icon>
-                    </ion-button>
-                </ion-buttons>
+
+                    </ion-buttons>
+                </ion-toolbar>
+
             </ion-card-content>
+
 
         </ion-card>
     </div>

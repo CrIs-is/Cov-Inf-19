@@ -9,8 +9,9 @@
 }
 
 #logo {
-    height: 50px;
-    width: 50px;
+    height: 40px;
+    width: 40px;
+    margin-left: 4px;
 }
 
 .badge-new-today {
@@ -28,4 +29,6 @@
 
 ion-item {
     border-radius: 10px;
+    --detail-icon-color: #3171e0;
+    --detail-icon-opacity: 1;
 }

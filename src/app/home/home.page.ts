@@ -32,14 +32,14 @@ export class HomePage implements OnInit {
         id:'',
         name:'',
         regions:[],
-        today_deaths:0,
+        today_deaths:null,
         today_new_confirmed: null,
-        today_new_recovered:0,
-        today_new_deaths:0,
-        today_recovered:0,
-        yesterday_confirmed:0,
-        yesterday_deaths:0,
-        yesterday_recovered:0,
+        today_new_recovered:null,
+        today_new_deaths:null,
+        today_recovered:null,
+        yesterday_confirmed:null,
+        yesterday_deaths:null,
+        yesterday_recovered:null,
       }
 
     this.global =  {
@@ -84,21 +84,6 @@ export class HomePage implements OnInit {
         console.log("GetDataColombia finalizado")
       }
     )
-  }
-
-  goToColombia(){
-    this.router.navigate([`/colombia/detalles`])
-  }
-
-  async presentModal() {
-    const modal = await this.modal.create({
-      component: ModalPage,
-      swipeToClose: true,
-      componentProps:{
-        "parametro":banderas
-      }
-    });
-    return await modal.present();
   }
 
   private data;
