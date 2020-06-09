@@ -87,8 +87,8 @@ export class MuertesPage implements OnInit {
    getData(fecha: string){
     this.service.getColombia(fecha).subscribe(
       (data)=>{
-        const res = JSON.parse(data.data)
-        this.departamentos = res.dates[fecha].countries.Colombia.regions
+        //const res = JSON.parse(data.data)
+        this.departamentos = data.regions
         console.log("datos",this.departamentos)
         for(var item of this.departamentos){
           this.departamentosL.push(item.name)

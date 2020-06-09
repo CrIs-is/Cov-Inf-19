@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'colombia-details',
     loadChildren: () => import('./pages/colombia-details/colombia-details.module').then( m => m.ColombiaDetailsPageModule)
   },
+  {
+    path: 'ultimas-cifras',
+    loadChildren: () => import('./pages/ultimas-cifras/ultimas-cifras.module').then( m => m.UltimasCifrasPageModule)
+  },
 ];
 
 @NgModule({

@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController } from '@ionic/angular';
-import { Pais } from '../../models/pais.interface';
+import { ModalController, Platform } from '@ionic/angular';
 import { DataService } from '../../servicios/data.service';
 import { Router } from '@angular/router';
 import { Noticia } from '../../models/noticia.interface';
@@ -14,9 +13,9 @@ export class ModalPage implements OnInit {
 
   @Input() id: number;
   data: any;
-  noticia: Noticia;
+  public noticia: Noticia=null;
   
-  constructor(private modalCtrl : ModalController, private service: DataService, private router: Router) {
+  constructor(private modalCtrl : ModalController, private service: DataService, private router: Router,private platform: Platform) {
     this.noticia = {
       author:'',
       title:'',
@@ -32,12 +31,9 @@ export class ModalPage implements OnInit {
   ngOnInit() {
     console.log(this.id)
     this.getNoticias()
-    //this.service.getBanderas().subscribe(data => console.log("jaja",data))
   }
 
   dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
     this.modalCtrl.dismiss({
       'dismissed': true
     });
@@ -46,15 +42,12 @@ export class ModalPage implements OnInit {
   getNoticias(){
     this.service.getNoticesCovidColombia().subscribe(
       (data)=> {
-        const parseTo = JSON.parse(data.data)
-        this.noticia = parseTo['articles'][this.id]
-        console.log(data)
-        //[scrollEvents]="true" (ionScroll)="scroll($event)"
+        this.noticia = data[this.id]
       },
       (error)=> {
         console.log(error)
       },
-      ()=> {console.log("completado")},
+      ()=> {console.log("Noticias completado")},
     )
   }
 
@@ -62,4 +55,14 @@ export class ModalPage implements OnInit {
     var i = arr.indexOf( item );
     i !== -1 && arr.splice( i, 1 );
   };
+
+  butonBack(){
+    return this.platform.backButton.subscribe(async () =>{
+      this.dismiss()
+    })
+  }
+  
+  ngOnDestroy(): void {
+    this.butonBack().unsubscribe()
+  }
 }

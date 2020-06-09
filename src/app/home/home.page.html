@@ -1,192 +1,28 @@
 <ion-content color="oscuro">
-    <!--
+    <ion-card-content>
+        <ion-img src="../../assets/logo4.png"></ion-img>
+    </ion-card-content>
 
+    <ion-item lines="none" button class="ion-margin" color="dark" routerLink="/ultimas-cifras">
+        <ion-icon color="primary" slot="start" name="cellular-outline"></ion-icon>
+        <ion-label>
+            Ultimas cifras
+        </ion-label>
+    </ion-item>
 
+    <ion-item lines="none" button class="ion-margin" color="dark" routerLink="/noticias">
+        <ion-icon color="primary" slot="start" name="newspaper-outline"></ion-icon>
+        <ion-label>
+            Ultimas noticias
+        </ion-label>
+    </ion-item>
 
-    <div class="imagen animate__animated animate__backInDown">
-        <img src="../../assets/logoz.png" alt="">
-    </div>
-    <div class="animate__animated animate__fadeInLeft">
-        <ion-card-content class="ion-activatable ">
-            <div>
-                <ion-badge class="badge-new-today" color="primary"><span></span></ion-badge>
-                <ion-item color="dark" detail (click)="presentModal()">
-                    <ion-icon name="newspaper-outline" color="primary" slot="start"></ion-icon>
-                    Noticias
-                    <ion-text slot="end">
-
-                    </ion-text>
-                    
-
-                </ion-item>
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-
-
-        </ion-card-content>
-    </div>
-
-    <div class="animate__animated animate__fadeInLeft">
-        <ion-card-content class="ion-activatable ripple-parent ">
-            <div>
-                <ion-badge class="badge-new-today" color="primary"><span>{{global.today_new_confirmed}}</span></ion-badge>
-                <ion-item color="dark" detail>
-                    <ion-icon color="primary" slot="start" name="globe-outline"></ion-icon>
-                    Global
-                    <ion-text slot="end">
-                        {{ global.today_confirmed }}
-                        <ion-spinner *ngIf="global.today_confirmed == null" name="dots" color="light"></ion-spinner>
-                    </ion-text>
-                   
-
-                </ion-item>
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-
-
-        </ion-card-content>
-
-
-        <ion-card-content class="ion-activatable ripple-parent ">
-            <div>
-                <ion-badge class="badge-new-today" color="primary"><span>{{colombia.today_new_confirmed}}</span></ion-badge>
-                <ion-item color="dark" (click)="goToColombia()" detail>
-                    <ion-icon color="primary" slot="start" name="flag-outline"></ion-icon>
-                    Colombia
-                    <ion-text slot="end">
-                        {{colombia.today_confirmed}}
-                        <ion-spinner *ngIf="colombia.today_confirmed == null" name="dots" color="light"></ion-spinner>
-                    </ion-text>
-
-                   
-
-                </ion-item>
-                <ion-ripple-effect></ion-ripple-effect>
-            </div>
-
-        </ion-card-content>
-
-
-
-        <ion-card-content class="ion-activatable ripple-parent ">
-            <div>
-                <ion-badge class="badge-new-today" color="primary"><span>{{colombia.today_new_confirmed}}</span></ion-badge>
-                <ion-item color="dark" detail>
-
-                    <ion-icon color="primary" slot="start" name="location-outline"></ion-icon>
-                    Mi Departamento
-                    
-                <ion-icon *ngIf="!elementos[2]" slot="end" name="chevron-forward-outline"></ion-icon>
-                <ion-icon *ngIf="elementos[2]" slot="end" name="chevron-down-outline"></ion-icon>
-                
-                </ion-item>
-            </div>
-            <ion-ripple-effect></ion-ripple-effect>
-        </ion-card-content>
-    </div>-->
-
-    <ion-header>
-        <ion-toolbar color="dark">
-
-
-            <ion-buttons slot="start">
-                <ion-img id="logo" src="../../assets/logoff.png" alt=""></ion-img>
-                <ion-title size="small">
-                    Cov-Inf-19
-                </ion-title>
-            </ion-buttons>
-
-
-            <ion-buttons slot="secondary">
-
-                <ion-button color="light" routerLink="/noticias" routerDirection="forward">
-                    <ion-icon slot="icon-only" name="newspaper-outline"></ion-icon>
-                </ion-button>
-                <ion-button color="light">
-                    <ion-icon slot="icon-only" name="fitness-outline"></ion-icon>
-                </ion-button>
-            </ion-buttons>
-
-
-        </ion-toolbar>
-    </ion-header>
-
-    <ion-card color="dark" class="animate__animated animate__fadeInLeft">
-
-        <ion-item detail color="dark" lines="full">
-            <ion-avatar slot="start">
-                <img id="girar" src="../../assets/planeta.png">
-            </ion-avatar>
-            <ion-label>Cifras globales</ion-label>
-        </ion-item>
-
-        <ion-item color="dark" lines="full">
-            <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
-            <ion-label>Confirmados </ion-label>
-            {{global.today_confirmed}}
-            <ion-spinner *ngIf="global.today_confirmed == null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-        <ion-item color="dark" lines="full">
-            <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
-            <ion-label>Muertes </ion-label>
-            {{global.today_deaths}}
-            <ion-spinner *ngIf="global.today_deaths == null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-        <ion-item color="dark" lines="full">
-            <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
-            <ion-label>Recuperados</ion-label>
-            {{global.today_recovered}}
-            <ion-spinner *ngIf="global.today_recovered== null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-
-
-    </ion-card>
-
-    <ion-card color="dark" class="animate__animated animate__fadeInRight">
-
-        <ion-item lines="full" detail routerLink="/colombia/detalles" routerDirection="forward" color="dark">
-            <ion-avatar slot="start">
-                <img src="../../assets/colombia.jpg">
-            </ion-avatar>
-            <ion-label>Cifras nacionales</ion-label>
-
-        </ion-item>
-
-        <ion-item lines="full" detail color="dark" routerLink="/colombia/casos">
-            <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
-            <ion-label>Confirmados</ion-label>
-            {{colombia.today_confirmed}}
-            <ion-spinner *ngIf="colombia.today_confirmed == null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-        <ion-item lines="full" detail color="dark" routerLink="/colombia/muertes">
-            <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
-            <ion-label>Muertes </ion-label>
-            {{colombia.today_deaths}}
-            <ion-spinner *ngIf="colombia.today_deaths== null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-        <ion-item lines="full" detail color="dark" routerLink="/colombia/recuperados">
-            <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
-            <ion-label>Recuperados </ion-label>
-            {{colombia.today_recovered}}
-            <ion-spinner *ngIf="colombia.today_recovered == null" name="dots" color="light"></ion-spinner>
-        </ion-item>
-
-    </ion-card>
-
-    <ion-card color="dark" class="animate__animated animate__fadeIn">
-        <ion-card-content>
-            <ion-button color="oscuro" expand="block">
-                Realizar test
-            </ion-button>
-
-        </ion-card-content>
-    </ion-card>
-
+    <ion-item lines="none" button (click)="buttonClick()" class="ion-margin" color="dark">
+        <ion-icon color="primary" slot="start" name="location-outline"></ion-icon>
+        <ion-label>
+            Atlantico
+        </ion-label>
+    </ion-item>
 
 
 

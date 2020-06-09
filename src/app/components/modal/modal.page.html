@@ -1,19 +1,13 @@
-<ion-toolbar color="dark">
+<ion-toolbar color="dark" class="ion-text-center">
 
-    <ion-buttons slot="end" color="dark">
+    <ion-buttons slot="start" color="dark">
         <ion-button color="primary" (click)="dismiss()">
-            <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+
+            <!--<ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>-->
+            <ion-icon slot="icon-only" name="chevron-down-outline"></ion-icon>
         </ion-button>
-
-
     </ion-buttons>
 
-
-    <ion-fab vertical="top" horizontal="end" edge slot="fixed">
-        <ion-fab-button>
-            <ion-icon name="person"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
 </ion-toolbar>
 <ion-content fullscreen color="oscuro" padding>
     <div *ngIf="noticia == null">

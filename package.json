@@ -23,6 +23,7 @@
         "@fortawesome/fontawesome-svg-core": "^1.2.28",
         "@fortawesome/free-solid-svg-icons": "^5.13.0",
         "@ionic-native/core": "^5.0.7",
+        "@ionic-native/geolocation": "^5.26.0",
         "@ionic-native/http": "^5.25.0",
         "@ionic-native/screen-orientation": "^5.26.0",
         "@ionic-native/splash-screen": "^5.0.0",
@@ -30,8 +31,9 @@
         "@ionic/angular": "^5.0.0",
         "animate.css": "^4.1.0",
         "chart.js": "^2.9.3",
-        "cordova-android": "^8.1.0",
+        "cordova-android": "8.1.0",
         "cordova-plugin-file": "^6.0.2",
+        "cordova-plugin-geolocation": "^4.0.2",
         "cordova-plugin-screen-orientation": "^3.0.2",
         "core-js": "^2.5.4",
         "es6-promise-plugin": "^4.2.2",
@@ -82,7 +84,8 @@
             },
             "cordova-plugin-ionic-keyboard": {},
             "cordova-plugin-advanced-http": {},
-            "cordova-plugin-screen-orientation": {}
+            "cordova-plugin-screen-orientation": {},
+            "cordova-plugin-geolocation": {}
         },
         "platforms": [
             "android"

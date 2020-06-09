@@ -1,27 +1,16 @@
 <ion-header #header>
-    <ion-toolbar color="dark">
+    <ion-toolbar color="dark" class="ion-text-center">
         <ion-buttons slot="start">
-            <ion-back-button defaultHref="home" text="" color="primary"></ion-back-button>
+            <ion-back-button color="primary" text=""></ion-back-button>
         </ion-buttons>
 
-
-        <ion-item lines="none" color="dark">
-
-            <ion-icon class="icono" slot="end" color="primary" name="search-outline" (click)="presentModal()">
-            </ion-icon>
+        <img src="../../../assets/icono.png" alt="" width="45" height="50" routerLink="/home">
 
 
-
-        </ion-item>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
-
-
-
-
 
     <!-- <app-componente-departamentos #barra
        [nombreDepartamentos]="nombreDepartamentos"
@@ -88,7 +77,7 @@
             <ion-tab-button tab="casos">
                 <ion-icon name="flag-outline"></ion-icon>
                 <ion-label>Casos</ion-label>
-                <ion-badge color="primary">6+</ion-badge>
+                <ion-badge color="primary"></ion-badge>
             </ion-tab-button>
 
             <ion-tab-button tab="muertes">
@@ -100,8 +89,6 @@
                 <ion-icon name="thumbs-up-outline"></ion-icon>
                 <ion-label>Recuperados</ion-label>
             </ion-tab-button>
-
-
 
 
 

@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { CasosPageRoutingModule } from './casos-routing.module';
-
 import { CasosPage } from './casos.page';
+import { GraficasComponent } from '../../graficas/graficas.component';
 
 @NgModule({
   imports: [
@@ -15,6 +13,6 @@ import { CasosPage } from './casos.page';
     IonicModule,
     CasosPageRoutingModule
   ],
-  declarations: [CasosPage]
+  declarations: [CasosPage, GraficasComponent]
 })
 export class CasosPageModule {}

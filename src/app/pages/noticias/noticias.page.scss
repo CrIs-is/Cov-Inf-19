@@ -3,12 +3,6 @@
     width: 40px;
 }
 
-ion-card img {
-    text-align: center;
-    width: 100%;
-    //max-height: 200px;
-}
-
 .inline {
     display: inline-block;
 }
@@ -20,10 +14,6 @@ ion-card img {
 
 .flotante {
     float: right;
-}
-
-.animate__animated.animate__backInRight {
-    --animate-duration: 2s;
 }
 
 .clase {
@@ -46,4 +36,53 @@ ion-card img {
     border-bottom: 1px solid #ccc;
     margin: 1px 0;
     width: 100%;
+}
+
+.slide {
+    height: 210px;
+    img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+#icono {
+    position: relative;
+    left: -23px;
+}
+
+.goLeft {
+    position: absolute;
+    top: 100px;
+    z-index: 50;
+}
+
+.goRight {
+    position: absolute;
+    top: 100px;
+    z-index: 50;
+    right: 0;
+}
+
+h2 {
+    color: white;
+}
+
+ion-slide {
+    display: block;
+}
+
+h6 {
+    font-size: 16px;
+    position: absolute;
+    color: #ffffff;
+}
+
+#content-card {
+    height: 68px;
+    box-shadow: none;
+}
+
+ion-card-title {
+    font-size: 20px
 }

@@ -41,10 +41,10 @@ export class CasosPage implements OnInit {
   };
 
   ngOnInit() {
-    this.generateColorArray(33) 
-    this.fechaActual = this.fechaActual.substr(0,10)
-    this.getData(this.fechaActual)
-    
+    this.generateColorArray(33) ;
+    this.fechaActual = this.fechaActual.substr(0,10);
+    this.getData(this.fechaActual);
+    this.getSexo();
   }
   generateColorArray(num: number) {
     this.colorArray = [];
@@ -93,8 +93,8 @@ export class CasosPage implements OnInit {
   getData(fecha: string){
     this.service.getColombia(fecha).subscribe(
       (data)=>{
-        const res = JSON.parse(data.data)
-        this.departamentos = res.dates[fecha].countries.Colombia.regions
+        //const res = JSON.parse(data.data)
+        this.departamentos = data.regions
         console.log("datos",this.departamentos)
         for(var item of this.departamentos){
           this.departamentosL.push(item.name)
@@ -113,19 +113,14 @@ export class CasosPage implements OnInit {
   }
 
   getSexo(){
-    this.service.getSexo().subscribe(
-      (data)=>{
-        let res = JSON.parse(data.data)        
-        this.sexo = res['meta']['view']['columns'][15]['cachedContents']['top']
-        console.log(this.sexo)
-       for(let label of this.sexo){
-         this.sexoL.push(label.item)
-         this.sexoD.push(label.count)
-       }
-       //console.log(this.sexoL)
-       //console.log(this.sexoD)
-      }
-    )
+    this.service.getSexo().subscribe((data)=>{
+      data.forEach(element => {
+        this.sexoL.push(element.item)
+        this.sexoD.push(element.count)
+      });
+      console.log(this.sexoL);
+      console.log(this.sexoD);
+    })
   }
 
   
@@ -142,10 +137,10 @@ export class CasosPage implements OnInit {
   }
 
   slideNext(){
-    this.slide.slideNext(2000);
+    this.slide.slideNext(1000);
   }
   slidePrevius(){
-    this.slide.slidePrev(2000);
+    this.slide.slidePrev(1000);
   }
 
 

@@ -1,0 +1,48 @@
+#card-global {
+    --background: #fff url('../../../assets/mundo2.png') no-repeat center center / cover;
+    color: white;
+    z-index: 1;
+    width: 85%;
+    margin: 0px auto;
+}
+
+#card-nacional {
+    --background: #fff url('../../../assets/colo.jpg') no-repeat center center / cover;
+    color: white;
+    z-index: 1;
+    width: 85%;
+    margin: 0px auto;
+    position: relative;
+    top: -56px;
+}
+
+ion-toolbar {
+    --background: transparent
+}
+
+ion-card-title,
+ion-card-subtitle {
+    color: white;
+}
+
+.absoluto {
+    position: relative;
+    top: -60px;
+    z-index: 0;
+}
+
+.absoluto2 {
+    position: relative;
+    top: -105px;
+    z-index: 0;
+}
+
+ion-item {
+    --detail-icon-opacity: 1;
+    --detail-icon-color: #3171e0;
+}
+
+img {
+    position: relative;
+    left: -23px;
+}

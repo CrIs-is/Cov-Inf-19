@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ColombiaDetailsPageRoutingModule } from './colombia-details-routing.module';
+import { UltimasCifrasPageRoutingModule } from './ultimas-cifras-routing.module';
 
-import { ColombiaDetailsPage } from './colombia-details.page';
-
+import { UltimasCifrasPage } from './ultimas-cifras.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ColombiaDetailsPageRoutingModule
+    UltimasCifrasPageRoutingModule
   ],
-  declarations: [ColombiaDetailsPage]
+  declarations: [UltimasCifrasPage]
 })
-export class ColombiaDetailsPageModule {}
+export class UltimasCifrasPageModule {}

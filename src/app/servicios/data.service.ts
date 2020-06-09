@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Platform, AlertController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
-import { from, fromEvent, forkJoin, of } from 'rxjs';
-import { banderas } from './banderas';
-
+import { fromEvent } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 
 
@@ -13,35 +12,41 @@ import { banderas } from './banderas';
 })
 export class DataService {
 
-  private banderas$;
+  
   constructor(private http: HttpClient,private nativeHttp: HTTP, public _platform: Platform,public alerte: AlertController ) {
     //this.url = 'https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD';
     
   } 
 
   getNoticesCovidColombia(){
-    let request =  this.nativeHttp.get(`http://newsapi.org/v2/top-headlines?country=co&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`,{},{
-      'Content-Type':'aplication/json'
-     })
-     
-     return from(request);
+    return this.http.get(`http://newsapi.org/v2/top-headlines?country=co&category=health&apiKey=9df0c5caa2914c5ab248ab43b047bb43`)
+     .pipe(map((data: any)=>{
+      return data.articles
+     }))
   }
   
   //Data de colombia
   getColombia(fecha: string) {
-    let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`,{},{
+    /*let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`,{},{
     'Content-Type':'aplication/json'
     });
-    return from(nativeCall)
-    /*return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`)*/
+    return from(nativeCall)*/
+    return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`)
+    .pipe(map((data: any)=>{
+      return data['dates'][fecha]['countries']['Colombia']
+    }))
   }
 
   //Data del mundo
   getGlobal(fecha: string) {
-    let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com//api/${fecha}/country/*`,{},{
+    /*let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com//api/${fecha}/country/*`,{},{
     'Conten-Type':'aplication/json'
     });
-    return from(nativeCall)
+    return from(nativeCall)*/
+    return this.http.get(`https://api.covid19tracking.narrativa.com//api/${fecha}/country/*`)
+    .pipe(map((data)=>{
+      return data['total']
+    }))
   }
 
   getPaisesNews(){
@@ -54,30 +59,26 @@ export class DataService {
   }
 
   getSexo(){
-  let resp = this.nativeHttp.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`,{},{
-      'Content-Type':'aplication/json'
-    })
-    return from(resp)
-     /* return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
+  return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)
+     /*return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
+     .pipe(map((data: any)=>{
+       return data.meta.view.columns[15].cachedContents.top
+     }))
   }
 
-  getMayo(){
-    const mayo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-05-24/country/colombia`,{},{
+  getMes(fecha : string){
+   /* const marzo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`,{},{
       'Content-Type':'aplication/json'
-    });
-    return from(mayo)   
-  }
-  getAbril(){
-    const abril = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-04-30/country/colombia`,{},{
-      'Content-Type':'aplication/json'
-    });
-    return from(abril)
-  }
-  getMarzo(){
-    const marzo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/2020-03-31/country/colombia`,{},{
-      'Content-Type':'aplication/json'
-    });
-    return from(marzo)
+    });*/
+    return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`)
+    .pipe(
+      map((data)=>{
+        return data['dates'][fecha]['countries']['Colombia']
+      })
+    )
   }
   
+  getLocationIp(){
+    return this.http.get(`http://ip-api.com/json`)
+  }
 }

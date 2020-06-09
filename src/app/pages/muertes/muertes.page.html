@@ -1,27 +1,23 @@
 <ion-content color="oscuro">
     <ion-toolbar color="black">
-        <ion-buttons slot="secondary">
+        <ion-buttons slot="start">
             <ion-button color="primary" (click)="slidePrevius()">
-                <ion-icon name="chevron-back-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-buttons slot="primary">
             <ion-button color="primary" (click)="slideNext()">
-                <ion-icon name="chevron-forward-outline"></ion-icon>
+                <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>Cov-Inf-19</ion-title>
+
     </ion-toolbar>
 
     <ion-slides pager="false" [options]="sliderConfig" (ionSlideDidChange)="slidesEvent($event)" #slides>
 
 
         <ion-slide>
-            <ion-buttons>
-                <ion-button (click)="updateChart()">
-                    <ion-icon name="reload-outline"></ion-icon>
-                </ion-button>
-            </ion-buttons>
+
 
             <div class="welcome-card">
                 <canvas #muertesBar></canvas>

@@ -1,0 +1,103 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="oscuro" class="ion-text-center">
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text="" defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <img src="../../../assets/icono.png" alt="" width="45" height="50">
+    </ion-toolbar>
+</ion-header>
+<ion-content color="oscuro">
+
+    <div>
+        <ion-card id="card-global" mode="ios" type="button" routerLink="/colombia/detalles" routerDirection="forward">
+            <ion-card-header>
+                <ion-card-subtitle>{{fechaActual}}</ion-card-subtitle>
+                <ion-card-title>Global</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+
+                Enterese de todo lo relacionado al covid-19 en el mundo con datos estadisticos
+
+            </ion-card-content>
+        </ion-card>
+
+        <div class="absoluto">
+            <ion-card color="dark" mode="ios">
+
+                <ion-item lines="none" color="dark">
+                </ion-item>
+
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/casos">
+                    <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
+                    <ion-label>Confirmados</ion-label>
+                    <ion-spinner *ngIf="global.today_confirmed == null" name="dots" color="light"></ion-spinner>
+                    {{global.today_confirmed}}
+
+                </ion-item>
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/muertes">
+                    <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
+                    <ion-label>Muertes</ion-label>
+                    <ion-spinner *ngIf="global.today_deaths == null" name="dots" color="light"></ion-spinner>
+                    {{global.today_deaths}}
+
+                </ion-item>
+
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/recuperados">
+                    <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
+                    <ion-label>Recuperados </ion-label>
+                    <ion-spinner *ngIf="global.today_recovered == null" name="dots" color="light"></ion-spinner>
+                    {{global.today_recovered}}
+                </ion-item>
+            </ion-card>
+        </div>
+    </div>
+
+    <div>
+        <ion-card id="card-nacional" mode="ios" type="button" routerLink="/colombia/detalles" routerDirection="forward">
+            <ion-card-header>
+                <ion-card-subtitle>{{fechaActual}}</ion-card-subtitle>
+                <ion-card-title>Colombia</ion-card-title>
+            </ion-card-header>
+
+            <ion-card-content>
+
+                Enterese de todo lo relacionado al covid-19 en Colombia y sus regiones con datos actualizados y graficas estadisticas
+
+            </ion-card-content>
+        </ion-card>
+
+        <div class="absoluto2">
+            <ion-card color="dark" mode="ios">
+
+                <ion-item lines="none" color="dark">
+                </ion-item>
+
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/casos">
+                    <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
+                    <ion-label>Confirmados</ion-label>
+                    <ion-spinner *ngIf="colombia.today_confirmed == null" name="dots" color="light"></ion-spinner>
+                    {{colombia.today_confirmed}}
+
+                </ion-item>
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/muertes">
+                    <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
+                    <ion-label>Muertes</ion-label>
+                    <ion-spinner *ngIf="colombia.today_deaths== null" name="dots" color="light"></ion-spinner>
+                    {{colombia.today_deaths}}
+
+                </ion-item>
+
+                <ion-item lines="full" detail color="dark" routerLink="/colombia/recuperados">
+                    <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
+                    <ion-label>Recuperados </ion-label>
+                    {{colombia.today_recovered}}
+                    <ion-spinner *ngIf="colombia.today_recovered == null" name="dots" color="light"></ion-spinner>
+                </ion-item>
+
+            </ion-card>
+        </div>
+    </div>
+
+
+</ion-content>

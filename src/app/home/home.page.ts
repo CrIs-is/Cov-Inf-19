@@ -1,13 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform, ModalController } from '@ionic/angular';
-import { DataService } from '../servicios/data.service';
-import * as moment from 'moment';
-import { HTTP } from '@ionic-native/http/ngx';
-import { Pais } from '../models/pais.interface';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Platform, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { Global } from '../models/global.interface';
-import { ModalPage } from '../components/modal/modal.page';
-import { banderas } from '../servicios/banderas';
 
 
 @Component({
@@ -15,84 +8,45 @@ import { banderas } from '../servicios/banderas';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage implements OnInit {
+export class HomePage implements OnInit,OnDestroy{
 
-  public fechaActual =  moment().format();
+  lastTimeBackPress = 0;
+  timePeriodToExit = 2000;
 
-  public colombia:Pais;
-  public global:Global;
-  
-  constructor(public platform: Platform , 
-    public dataSer: DataService, 
-    public native_Http: HTTP, 
-    private router: Router,
-    public modal: ModalController) {
-      this.colombia = {
-        today_confirmed:null,
-        id:'',
-        name:'',
-        regions:[],
-        today_deaths:null,
-        today_new_confirmed: null,
-        today_new_recovered:null,
-        today_new_deaths:null,
-        today_recovered:null,
-        yesterday_confirmed:null,
-        yesterday_deaths:null,
-        yesterday_recovered:null,
-      }
-
-    this.global =  {
-      
-      today_confirmed: null,
-      today_new_confirmed: null,
-      
-    };
+  constructor(private platform: Platform,private toast: ToastController,private router:Router){
   }
-  
-  ngOnInit(): void {
-    this.fechaActual = this.fechaActual.substr(0,10)
-    console.log(this.fechaActual)
-    if(this.platform.is('cordova')) {
-      this.getPais()
-      this.getDNativeColombia(this.fechaActual);
-      this.getDNativeGlobal(this.fechaActual)
-    }
+
+  ngOnInit(){
+    this.exitApp();
     
   }
 
-  getDNativeGlobal(fecha : string){
-    this.dataSer.getGlobal(fecha).subscribe(
-      (data) => {
-        const res = JSON.parse(data.data)
-        this.global = res['total']
-        console.log("COnfirm",this.global.today_confirmed)
-      }
-    )
+  async presentToast() {
+    const toast = await this.toast.create({
+      message: 'Presione dos veces para salír.',
+      duration: 2000,
+      animated:true,
+      mode:'ios'
+    });
+    toast.present();
   }
 
-  getDNativeColombia(fecha: string){
-    this.dataSer.getColombia(fecha).subscribe(
-      (data)=>{
-        const resp = JSON.parse(data.data)
-        this.colombia = resp['dates'][fecha]['countries']['Colombia']
-        console.log(this.colombia)
-      },
-      (error)=>{
-        console.log(error)
-      },()=>{
-        console.log("GetDataColombia finalizado")
+  exitApp(){
+     this.platform.backButton.subscribe(async=>{
+       if(this.router.url === '/home'){
+        if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+          // this.platform.exitApp(); // Exit from app
+          navigator['app'].exitApp(); // work in ionic 4
+      } else {
+          this.presentToast();
+          this.lastTimeBackPress = new Date().getTime();
       }
-    )
+       }
+     
+    })
   }
-
-  private data;
-  getPais(){
-    this.dataSer.getPaisesNews().subscribe(
-      (data)=>{
-       console.log(data)
-      }
-    )}
-
+  ngOnDestroy(){
+    
+  }
 
 }

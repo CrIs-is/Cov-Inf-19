@@ -38,9 +38,9 @@ export class ColombiaDetailsPage implements OnInit {
   segmento:string='standart';
 
  
-  public mesesDConfirmed:Array<any> = [];
-  public mesesDRecovered:Array<any> = [];
-  public mesesDDeaths:Array<any> = [];
+  public mesesDConfirmed:Array<any> = [0,0];
+  public mesesDRecovered:Array<any> = [0,0];
+  public mesesDDeaths:Array<any> = [0,0];
   private spinner;
 
   constructor( private service: DataService, private loadingController: LoadingController,public toastController: ToastController) {
@@ -82,7 +82,7 @@ export class ColombiaDetailsPage implements OnInit {
     let ctx = this.canvas1.nativeElement;
     ctx.height = 350;
     this.bars = new Chart(ctx, {
-      type: 'bar',
+      type: 'pie',
       defaultFontSize	: 45,
       data: {
         labels: ['Casos','Recuperados','Muertes'],
@@ -119,7 +119,7 @@ export class ColombiaDetailsPage implements OnInit {
     this.line = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Mayo','Abril','Marzo'],
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio'],
         datasets: [
           {
             label: 'Muertes',
@@ -164,7 +164,7 @@ export class ColombiaDetailsPage implements OnInit {
     this.line = new Chart(ctx, {
       type: 'horizontalBar',
       data: {
-        labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo'],
         datasets: [{
             data: [20, 10, 4, 2]
         }]
@@ -190,8 +190,9 @@ export class ColombiaDetailsPage implements OnInit {
   getData(fecha: string){
     this.service.getColombia(fecha).subscribe(
     (data)=>{
-      const resp = JSON.parse(data.data)
-      this.colombia = resp['dates'][fecha]['countries']['Colombia']
+      this.colombia = data
+      //const resp = JSON.parse(data.data)
+      //this.colombia = resp['dates'][fecha]['countries']['Colombia']
       //console.log(this.colombia.today_confirmed)
       //console.log(this.colombia)
     },
@@ -209,26 +210,35 @@ export class ColombiaDetailsPage implements OnInit {
 
   getDates(){
    forkJoin(
-     this.service.getMayo(),this.service.getAbril(),this.service.getMarzo()
+     this.service.getMes('2020-03-31'),this.service.getMes('2020-04-30'),this.service.getMes('2020-05-31')
+     ,this.service.getMes(this.fechaActual)
    ).subscribe(
      (data)=>{
-       let mayo = JSON.parse(data[0].data)
-       let abril = JSON.parse(data[1].data)
-       let marzo = JSON.parse(data[2].data)
+       console.log(data)
+        const marzo = data[0]
+        const abril = data[1]
+        const mayo = data[2]
+        const junio = data[3]
 
-       this.mesesDConfirmed.push(mayo.dates[this.fechaActual].countries.Colombia.today_confirmed)
-       this.mesesDConfirmed.push(abril.dates['2020-04-30'].countries.Colombia.today_confirmed)
-       this.mesesDConfirmed.push(marzo.dates['2020-03-31'].countries.Colombia.today_confirmed)
+       this.mesesDDeaths.push(marzo.today_deaths)
+       this.mesesDDeaths.push(abril.today_deaths)
+       this.mesesDDeaths.push(mayo.today_deaths)
+       this.mesesDDeaths.push(junio.today_deaths)
 
-       this.mesesDRecovered.push(mayo.dates[this.fechaActual].countries.Colombia.today_recovered)
-       this.mesesDRecovered.push(abril.dates['2020-04-30'].countries.Colombia.today_recovered)
-       this.mesesDRecovered.push(marzo.dates['2020-03-31'].countries.Colombia.today_recovered)
+       this.mesesDRecovered.push(marzo.today_recovered)
+       this.mesesDRecovered.push(abril.today_recovered)
+       this.mesesDRecovered.push(mayo.today_recovered)
+       this.mesesDRecovered.push(junio.today_recovered)
 
-       this.mesesDDeaths.push(mayo.dates[this.fechaActual].countries.Colombia.today_deaths)
-       this.mesesDDeaths.push(abril.dates['2020-04-30'].countries.Colombia.today_deaths)
-       this.mesesDDeaths.push(marzo.dates['2020-03-31'].countries.Colombia.today_deaths)
+       this.mesesDConfirmed.push(marzo.today_confirmed)
+       this.mesesDConfirmed.push(abril.today_confirmed)
+       this.mesesDConfirmed.push(mayo.today_confirmed)
+       this.mesesDConfirmed.push(junio.today_confirmed)
+      
      },error => console.log,
-     () => this.createLineChart()
+     () =>{
+          this.createLineChart();
+    }
    )
   }
 
@@ -238,11 +248,11 @@ export class ColombiaDetailsPage implements OnInit {
   }
 
   slideSiguiente(){
-    this.slides.slideNext(2000)
+    this.slides.slideNext(1000)
   }
 
   slideAnterior(){
-    this.slides.slidePrev(2000)
+    this.slides.slidePrev(1000)
   }
 
   segmentChanged(evento){

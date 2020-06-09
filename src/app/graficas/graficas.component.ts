@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Chart } from 'chart.js';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-graficas',
@@ -8,24 +9,23 @@ import { Chart } from 'chart.js';
 })
 export class GraficasComponent implements OnInit {
 
-  private dona;
   @ViewChild('canvas', {static: true}) canvas;
-  @Input() labels:Array<string>;
-  @Input() data:Array<string>;
+  @Input() labels:Array<string> = null;
+  @Input() data:Array<string>= null;
   public barss;
   constructor() { 
     
   }
 
+  
 //chartType = "doughnut"
   ngOnInit() {
     //let ctx = this.canvas1.nativeElement;
     //ctx.height = 350;
-  
-      this.getDought();
-    
-    
-    console.log("params",this.labels,this.data)
+    this.getData().subscribe((data)=>{
+      console.log(data)
+      this.getDought()
+    })
   }
 
   getDought(){
@@ -61,10 +61,23 @@ export class GraficasComponent implements OnInit {
         }
       }
     });
-    console.log(this.canvas)
+  
   }
 
-   // Por sexo
-  
-   
+  getData(){
+    return new Observable((subs)=>{
+      let intervalo = setInterval(()=>{
+        if(this.labels.length == 0 && this.data.length ==0){
+          console.log("Los datos no se estan recibiendo")
+        }
+        else{
+          subs.next(this.labels)
+          subs.next(this.data)
+          clearInterval(intervalo)
+        }
+      },1000)
+    })
+  }
+ 
+
 }
