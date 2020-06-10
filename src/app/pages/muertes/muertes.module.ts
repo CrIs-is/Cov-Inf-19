@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { MuertesPageRoutingModule } from './muertes-routing.module';
 
 import { MuertesPage } from './muertes.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    MuertesPageRoutingModule
+    MuertesPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [MuertesPage]
 })

@@ -123,7 +123,6 @@ export class CasosPage implements OnInit {
     })
   }
 
-  
   async presentLoading() {
     this.spinner = await  this.loadingController.create({
       cssClass: 'my-custom-class',

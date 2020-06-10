@@ -24,6 +24,7 @@ import { IonicHeaderParallaxModule } from 'ionic-header-parallax';
 import { ParallaxHeaderDirective } from './directives/parallax-header.directive';
 import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 library.add(faCoffee)
 
@@ -43,6 +44,7 @@ library.add(faCoffee)
     DataService,
     ScreenOrientation,
     Geolocation,
+    SocialSharing,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     HTTP
   ],

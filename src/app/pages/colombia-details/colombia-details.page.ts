@@ -23,8 +23,7 @@ export class ColombiaDetailsPage implements OnInit {
 
   private colombia:Pais;
 
-  //Charts References
-  @ViewChild('canvasBar', {static: true}) canvas1;
+  //References
   @ViewChild('lineChart', {static: true}) lineChart;
   @ViewChild('lineChart2', {static: true}) lineChart2;
   @ViewChild('slides', {static: true}) slides:IonSlides;
@@ -62,12 +61,9 @@ export class ColombiaDetailsPage implements OnInit {
   }
 
   ngOnInit() {
-    
     this.fechaActual = this.fechaActual.substr(0,10);
     this.getData(this.fechaActual);
     this.getDates()
-    
-    //this.createBarChart()
   }
 
   //Charts
@@ -76,41 +72,6 @@ export class ColombiaDetailsPage implements OnInit {
     for (let i = 0; i < num; i++) {
       this.colorArray.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     }
-  }
-
-  createBarChart() {
-    let ctx = this.canvas1.nativeElement;
-    ctx.height = 350;
-    this.bars = new Chart(ctx, {
-      type: 'pie',
-      defaultFontSize	: 45,
-      data: {
-        labels: ['Casos','Recuperados','Muertes'],
-        datasets: [{
-          label:  'Covid-19 en colombia',
-          data: [this.colombia.today_confirmed,this.colombia.today_recovered,this.colombia.today_deaths],
-          backgroundColor: ['#4285F4','#00C851','#ff4444'],
-          borderColor: ['#4285F4','#00C851','#ff4444'],
-          borderWidth: 1,
-        }]
-      },
-      options: {
-        legend: {
-          labels: {
-              // This more specific font property overrides the global property
-              fontColor: 'white',
-              defaultFontSize: '45px',
-          },
-      },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
   }
 
   createLineChart() {
@@ -191,20 +152,13 @@ export class ColombiaDetailsPage implements OnInit {
     this.service.getColombia(fecha).subscribe(
     (data)=>{
       this.colombia = data
-      //const resp = JSON.parse(data.data)
-      //this.colombia = resp['dates'][fecha]['countries']['Colombia']
-      //console.log(this.colombia.today_confirmed)
-      //console.log(this.colombia)
     },
     (error)=>{
       console.log(error)
     },
     ()=>{
-      this.chartDon()
-      this.createBarChart()
-     // this.createLineChart() 
+      //this.chartDon() 
       this.spinner.dismiss();
-      
     })
   }
 
@@ -280,7 +234,5 @@ export class ColombiaDetailsPage implements OnInit {
     });
     toast.present();
   }
-
-  
   
 }

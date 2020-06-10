@@ -6,16 +6,26 @@
         <div class="ion-text-center">
             <img id="icono" src="../../../assets/icono.png" alt="" width="45" height="50" routerLink="/home">
         </div>
-
     </ion-toolbar>
 </ion-header>
 
 <ion-content color="oscuro">
 
-    <ion-list-header>
-
+    <ion-item color="oscuro" lines="none">
+        <ion-icon color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <h2>Top</h2>
-    </ion-list-header>
+    </ion-item>
+
+    <div *ngIf="data == null">
+
+        <div class="ion-padding custom-skeleton">
+            <ion-skeleton-text animated style="width: 100%; height: 170px" slot="start"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 40%; height:20px"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%; height:20px"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 100%; height:20px"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 20%; height:20px"></ion-skeleton-text>
+        </div>
+    </div>
 
     <ion-slides #slide [options]="slideOpts">
         <div class="goLeft">
@@ -27,7 +37,7 @@
         </div>
         <ion-slide *ngFor="let item of data; trackBy : trackByFn; index as i">
 
-            <ion-card class="slide" color="oscuro" mode="ios">
+            <ion-card type="button" class="slide" color="oscuro" mode="ios" (click)="presentModal(i)">
                 <img [src]="item.urlToImage" />
             </ion-card>
             <ion-card id="content-card" color="oscuro">
@@ -45,25 +55,20 @@
             </ion-buttons>
         </div>
 
-
-
     </ion-slides>
 
-
-
-    <ion-list-header>
-
+    <ion-item color="oscuro" lines="none">
+        <ion-icon color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <h2>Nuevas</h2>
-    </ion-list-header>
-
+    </ion-item>
 
     <div id="main">
-        <ion-card *ngFor="let item of data; trackBy : trackByFn; index as i" color="dark" mode="ios">
+        <ion-card class="noticia" *ngFor="let item of data; trackBy : trackByFn; index as i" color="dark" mode="ios">
             <img [src]="item.urlToImage" />
             <ion-card-header>
 
                 <ion-card-title>{{item.title}}</ion-card-title>
-                <ion-card-subtitle class="ion-margin">
+                <ion-card-subtitle>
 
                     <ion-label color="primary">
                         {{item.author}}
@@ -76,6 +81,10 @@
                 <ion-toolbar color="dark">
                     {{item.publishedAt | date:'medium'}}
                     <ion-buttons slot="end">
+                        <ion-button color="primary" (click)="sharedNotice(item)">
+                            <ion-icon slot="icon-only" name="share-social-outline"></ion-icon>
+                        </ion-button>
+
                         <ion-button color="primary" (click)="presentModal(i)">
                             <ion-icon slot="icon-only" name="expand-outline"></ion-icon>
                         </ion-button>
@@ -83,8 +92,6 @@
                 </ion-toolbar>
 
             </ion-card-content>
-
-
         </ion-card>
     </div>
 
@@ -101,9 +108,5 @@
         </div>
 
     </div>
-
-
-
-
 
 </ion-content>

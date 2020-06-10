@@ -1,9 +1,4 @@
 <ion-content color="oscuro">
-    <!--<ion-item color="oscuro" lines="none">
-        <ion-icon slot="start" name="chevron-back-outline" (click)="slideAnterior()"></ion-icon>
-        <ion-icon slot="end" name="stats-chart-outline"></ion-icon>
-        <ion-icon slot="end" name="chevron-forward-outline" (click)="slideSiguiente()"></ion-icon>
-    </ion-item>-->
     <ion-toolbar color="black">
         <ion-buttons slot="start">
             <ion-button color="primary" (click)="slideAnterior()">
@@ -24,13 +19,11 @@
 
     <ion-slides pager="false" [options]="sliderConfig" (ionSlideDidChange)="slidesEvent($event)" #slides>
 
-
         <ion-slide>
             <div class="welcome-card">
                 Total
-                <canvas #canvasBar></canvas>
+                <app-pie-chart></app-pie-chart>
             </div>
-
             <ion-card color="oscuro" class="ion-margin">
 
                 <ion-card-content>

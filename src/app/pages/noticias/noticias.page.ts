@@ -4,6 +4,7 @@ import { Noticia } from '../../models/noticia.interface';
 import { ActivatedRoute } from '@angular/router';
 import { ModalPage } from 'src/app/components/modal/modal.page';
 import { ModalController, IonSlides } from '@ionic/angular';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 
 @Component({
   selector: 'app-noticias',
@@ -78,12 +79,27 @@ export class NoticiasPage implements OnInit {
   private data: Array<Noticia>[] = null;
   private desorder: Array<Noticia>[] = null;
 
-  constructor( private service: DataService,public ActRoute: ActivatedRoute, private modal: ModalController) { 
+  constructor( private service: DataService,public ActRoute: ActivatedRoute, private modal: ModalController,private socialSharing: SocialSharing) { 
   
   }
 
   ngOnInit() {
     this.getNoticias();
+  }
+
+  //Compartir noticias
+  sharedNotice(item){
+    var options = {
+      //message: 'Ionic compartir', // not supported on some apps (Facebook, Instagram)
+      //subject: 'the subject', // fi. for email
+      //files: ['', ''], // an array of filenames either locally or remotely
+      url: item.url,
+      //chooserTitle: 'Pick an app', // Android only, you can override the default share sheet title
+      //appPackageName: 'com.apple.social.facebook', // Android only, you can provide id of the App you want to share with
+     // iPadCoordinates: '0,0,0,0' //IOS only iPadCoordinates for where the popover should be point.  Format with x,y,width,height
+    };
+    console.log("Ejecuntado shared")
+    this.socialSharing.shareWithOptions(options);
   }
   
   //Obteniendo noticias

@@ -24,10 +24,7 @@ const routes: Routes = [
     path: 'popover',
     loadChildren: () => import('./components/popover/popover.module').then( m => m.PopoverPageModule)
   },
-  {
-    path: 'splash',
-    loadChildren: () => import('./components/splash/splash.module').then( m => m.SplashPageModule)
-  },
+  
   {
     path: 'modal',
     loadChildren: () => import('./components/modal/modal.module').then( m => m.ModalPageModule)
