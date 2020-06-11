@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Chart } from 'chart.js';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-graficas',
@@ -20,12 +20,15 @@ export class GraficasComponent implements OnInit {
   
 //chartType = "doughnut"
   ngOnInit() {
-    //let ctx = this.canvas1.nativeElement;
-    //ctx.height = 350;
-    this.getData().subscribe((data)=>{
-      console.log(data)
-      this.getDought()
+    let suscription = this.getData().subscribe((data)=>{
+      //console.log(data)
+      this.getDought();
+      suscription.unsubscribe()
+    },error => console.log("Ha ocurriod un error"),
+    ()=>{
+      
     })
+
   }
 
   getDought(){
@@ -65,19 +68,23 @@ export class GraficasComponent implements OnInit {
   }
 
   getData(){
-    return new Observable((subs)=>{
+    return new Observable(subs=>{
       let intervalo = setInterval(()=>{
-        if(this.labels.length == 0 && this.data.length ==0){
-          console.log("Los datos no se estan recibiendo")
+        if(this.data.length == 0){
+          console.log("Los datos no se han completado recibiendo")
         }
         else{
           subs.next(this.labels)
           subs.next(this.data)
-          clearInterval(intervalo)
+          //console.log(15)
         }
-      },1000)
+      },1000);
+
+      return ()=>{
+        console.log("Desuscripto");
+        clearInterval(intervalo);
+      }
     })
   }
- 
 
 }

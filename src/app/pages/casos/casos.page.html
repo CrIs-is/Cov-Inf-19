@@ -15,28 +15,32 @@
 
     <ion-slides pager="false" [options]="sliderConfig" #slide>
 
-
+        <!---Grafica chart-bar-->
         <ion-slide>
-
             <div class="welcome-card">
                 Casos por región
-                <canvas #canvas2></canvas>
-
+                <app-bar-chart [data]="departamentosD" [label]="departamentosL"></app-bar-chart>
             </div>
-
         </ion-slide>
-        <ion-slide>
 
+        <!---Grafica chart-donught-->
+        <ion-slide>
             <div class="welcome-card">
                 Casos por sexo
                 <ion-card-content>
-                    <app-graficas [labels]="sexoL" [data]="sexoD"></app-graficas>
+                    <app-graficas [labels]="['M', 'F']" [data]="sexoD"></app-graficas>
                 </ion-card-content>
             </div>
-
-
         </ion-slide>
-        <ion-slide>sdsad</ion-slide>
+
+        <ion-slide>
+            <div class="welcome-card">
+                Casos por edad
+                <ion-card-content>
+                    <app-pie-chart [labels]="labelEdades" [data]="edades" [colores]="colorArray"></app-pie-chart>
+                </ion-card-content>
+            </div>
+        </ion-slide>
 
     </ion-slides>
 

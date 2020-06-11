@@ -14,11 +14,17 @@ import { LoadingController, IonSlides } from '@ionic/angular';
 export class CasosPage implements OnInit {
 
   
-  @ViewChild('canvas2', {static: true}) canvas2;
   @ViewChild('slide', {static: true}) slide: IonSlides;
   public fechaActual =  moment().format();
-  bars: any;
-  colorArray:any;
+
+  colorArray:Array<any> = [];
+  labelEdades:Array<string> = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '>= 90']
+
+  //Edades
+  private nueveAbajo: Array<number> =  [];
+  public edades: Array<any> =  [];
+  
+  //Departamentos
   departamentos:Array<Departamento>;
   departamentosL:Array<string>=[];
   departamentosD:Array<number>=[];
@@ -31,6 +37,7 @@ export class CasosPage implements OnInit {
   
   constructor(public service: DataService,private loadingController:LoadingController) {
     this.presentLoading();
+    this.generateColorArray(33)
    }
 
   sliderConfig = {
@@ -41,53 +48,10 @@ export class CasosPage implements OnInit {
   };
 
   ngOnInit() {
-    this.generateColorArray(33) ;
     this.fechaActual = this.fechaActual.substr(0,10);
     this.getData(this.fechaActual);
-    this.getSexo();
-  }
-  generateColorArray(num: number) {
-    this.colorArray = [];
-    for (let i = 0; i < num; i++) {
-      this.colorArray.push('#' + Math.floor(Math.random() * 16777215).toString(16));
-    }
-  }
-
-  createBarChart() {
-    
-   // Chart.defaults.global.defaultFontColor = 'white';
-    let ctx = this.canvas2.nativeElement;
-    ctx.height = 400;
-    this.bars = new Chart(ctx, {
-      type: 'bar',
-      defaultFontSize	: 45,
-      data: {
-        labels: this.departamentosL,
-        datasets: [{
-          label:  'Casos',
-          data: this.departamentosD,
-          backgroundColor: this.colorArray,
-          borderColor: this.colorArray,
-          borderWidth: 1,
-        }]
-      },
-      options: {
-        legend: {
-          labels: {
-              // This more specific font property overrides the global property
-              fontColor: 'white',
-              //defaultFontSize: '4px',
-          },
-      },
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+    this.getSex();
+    this.getAge();
   }
 
   getData(fecha: string){
@@ -95,7 +59,7 @@ export class CasosPage implements OnInit {
       (data)=>{
         //const res = JSON.parse(data.data)
         this.departamentos = data.regions
-        console.log("datos",this.departamentos)
+        //console.log("datos",this.departamentos)
         for(var item of this.departamentos){
           this.departamentosL.push(item.name)
           this.departamentosD.push(item.today_confirmed)
@@ -104,15 +68,13 @@ export class CasosPage implements OnInit {
         (error)=>{
           console.log(error)
         },
-        ()=>{
-          this.createBarChart()
+        ()=>{ 
           console.log("Complete")
-          //this.spinner.dismiss();
         }
     )
   }
 
-  getSexo(){
+  getSex(){
     this.service.getSexo().subscribe((data)=>{
       data.forEach(element => {
         this.sexoL.push(element.item)
@@ -120,6 +82,33 @@ export class CasosPage implements OnInit {
       });
       console.log(this.sexoL);
       console.log(this.sexoD);
+    })
+  }
+
+  getAge(){
+    this.service.getAge().subscribe((data)=>{
+      console.log("Data",data.length)
+      
+      this.edades.push(data.filter((n:number)=> n[14] <= 9).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+      this.edades.push(data.filter((n:number)=> n[14] >= 90).length)
+      //console.log("menor igual 9",this.edades[0])
+      //console.log("mayor igual 10  menor igual 19",this.edades[1])
+      /*let count=0;
+      for(let i=0;i<this.edades.length;i++){
+        console.log(this.edades[i])
+        count+=this.edades[i]
+      }
+
+      console.log("Contador",count)*/
+
     })
   }
 
@@ -138,8 +127,16 @@ export class CasosPage implements OnInit {
   slideNext(){
     this.slide.slideNext(1000);
   }
+  
   slidePrevius(){
     this.slide.slidePrev(1000);
+  }
+
+  generateColorArray(num: number) {
+    this.colorArray = [];
+    for (let i = 0; i < num; i++) {
+      this.colorArray.push('#' + Math.floor(Math.random() * 16777215).toString(16));
+    }
   }
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { Chart } from 'chart.js';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-pie-chart',
@@ -9,31 +10,40 @@ import { Chart } from 'chart.js';
 export class PieChartComponent implements OnInit {
   @Input() labels: any;
   @Input() data: any;
+  @Input() colores: any;
 
   @ViewChild('canvasPie',{static: true}) canvas;
   private bars;
-  constructor() { }
-
-  ngOnInit() {
-    this.createPieChart() 
+  constructor() { 
+    this.colores = ['#4285F4','#00C851','#ff4444'];
   }
 
-  //data
-  //[this.colombia.today_confirmed,this.colombia.today_recovered,this.colombia.today_deaths],
+  ngOnInit() {
+    let suscription = this.getData().subscribe((data)=>{
+      console.log(data)
+      this.createPieChart();
+      suscription.unsubscribe()
+    },error => console.log("Ha ocurriod un error"),
+    ()=>{
+      
+    })
+
+  }
+
   createPieChart() {
     console.log("creando pieChart")
     let ctx = this.canvas.nativeElement;
     ctx.height = 350;
     this.bars = new Chart(ctx, {
       type: 'pie',
-      defaultFontSize	: 45,
+      //defaultFontSize	: 45,
       data: {
-        labels: ['Casos','Recuperados','Muertes'],
+        labels: this.labels,
         datasets: [{
           label:  'Covid-19 en colombia',
-          data: [45,35,85],
-          backgroundColor: ['#4285F4','#00C851','#ff4444'],
-          borderColor: ['#4285F4','#00C851','#ff4444'],
+          data: this.data,
+          backgroundColor: this.colores,
+          borderColor: this.colores,
           borderWidth: 1,
         }]
       },
@@ -55,4 +65,24 @@ export class PieChartComponent implements OnInit {
       }
     });
   }
+
+  getData(){
+    return new Observable(subs=>{
+      let intervalo = setInterval(()=>{
+        if(this.data.length == 0){
+          console.log("Los datos no se han completado recibiendo")
+        }
+        else{
+          subs.next(this.data)
+          console.log(15)
+        }
+      },1000);
+
+      return ()=>{
+        console.log("Desuscripto");
+        clearInterval(intervalo);
+      }
+    })
+  }
+
 }

@@ -34,7 +34,8 @@ export class ColombiaDetailsPage implements OnInit {
   bars: any;
   line: any
   colorArray:any;
-  segmento:string='standart';
+
+  private data:Array<any>=[];
 
  
   public mesesDConfirmed:Array<any> = [0,0];
@@ -152,13 +153,14 @@ export class ColombiaDetailsPage implements OnInit {
     this.service.getColombia(fecha).subscribe(
     (data)=>{
       this.colombia = data
+      this.data.push(this.colombia.today_confirmed)
+      this.data.push(this.colombia.today_recovered)
+      this.data.push(this.colombia.today_deaths)
     },
     (error)=>{
       console.log(error)
     },
     ()=>{
-      //this.chartDon() 
-      this.spinner.dismiss();
     })
   }
 
@@ -209,10 +211,6 @@ export class ColombiaDetailsPage implements OnInit {
     this.slides.slidePrev(1000)
   }
 
-  segmentChanged(evento){
-    this.segmento = evento.detail.value
-    
-  }
 
   //Components 
   async presentLoading() {

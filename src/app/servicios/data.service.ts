@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import { Platform, AlertController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
 import { fromEvent } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
 
 
 
@@ -64,6 +64,15 @@ export class DataService {
      .pipe(map((data: any)=>{
        return data.meta.view.columns[15].cachedContents.top
      }))
+  }
+
+  getAge(){
+    return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)
+       /*return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
+       .pipe(map((data: any)=>{
+         return data.data
+       })
+       )
   }
 
   getMes(fecha : string){
