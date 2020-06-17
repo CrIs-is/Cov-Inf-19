@@ -22,7 +22,7 @@
         <ion-slide>
             <div class="welcome-card">
                 Total
-                <app-pie-chart [labels]="['Casos','Recuperados','Muertes']" [data]="data"></app-pie-chart>
+                <app-graficas [labels]="['Casos','Recuperados','Muertes']" [data]="data" [colores]="['#4285F4','#00C851','#ff4444']"></app-graficas>
             </div>
             <ion-card color="oscuro" class="ion-margin">
 
@@ -147,13 +147,18 @@
         </ion-slide>
 
         <ion-slide>
-            Hoy
+            Atención
             <div class="welcome-card">
-                <canvas #lineChart2></canvas>
+                <app-pie-chart [labels]="atencionL" [data]="atencionD" [colores]="['#4285F4','#00C851','#ff4444']"></app-pie-chart>
             </div>
         </ion-slide>
 
+        <ion-slide>
+            Estado
+            <div class="welcome-card">
+                <app-bar-chart [label]="estadoL" [data]="estadoD"></app-bar-chart>
+            </div>
+        </ion-slide>
 
     </ion-slides>
-
 </ion-content>

@@ -37,6 +37,11 @@ export class ColombiaDetailsPage implements OnInit {
 
   private data:Array<any>=[];
 
+  public atencionL:Array<string> = [];
+  public atencionD:Array<string> = [];
+
+  public estadoL:Array<string> = [];
+  public estadoD:Array<string> = [];
  
   public mesesDConfirmed:Array<any> = [0,0];
   public mesesDRecovered:Array<any> = [0,0];
@@ -63,8 +68,11 @@ export class ColombiaDetailsPage implements OnInit {
 
   ngOnInit() {
     this.fechaActual = this.fechaActual.substr(0,10);
+    this.generateColorArray(33) ;
     this.getData(this.fechaActual);
-    this.getDates()
+    this.getDates();
+    this.getAtencion();
+    this.getEstado()
   }
 
   //Charts
@@ -196,6 +204,29 @@ export class ColombiaDetailsPage implements OnInit {
           this.createLineChart();
     }
    )
+  }
+
+  getAtencion(){
+    this.service.getAtencion().subscribe((data)=>{
+      console.log("Data estado",data)
+      this.atencionL.push(data[0].item)
+      this.atencionL.push(data[2].item)
+      this.atencionL.push(data[4].item)
+
+      this.atencionD.push(data[0].count)
+      this.atencionD.push(data[2].count)
+      this.atencionD.push(data[4].count)
+    })
+  }
+
+  getEstado(){
+    this.service.getEstado().subscribe((data)=>{
+      console.log("estado", data)
+      data.forEach(element => {
+        this.estadoL.push(element.item);
+        this.estadoD.push(element.count);
+      });
+    })
   }
 
   //Slide interaction

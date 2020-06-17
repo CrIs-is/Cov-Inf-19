@@ -21,8 +21,9 @@ export class CasosPage implements OnInit {
   labelEdades:Array<string> = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '>= 90']
 
   //Edades
-  private nueveAbajo: Array<number> =  [];
-  public edades: Array<any> =  [];
+  public hombres:Array<any> = [];
+  public mujeres:Array<any> = [];
+  public edades: Array<any> = [];
   
   //Departamentos
   departamentos:Array<Departamento>;
@@ -32,6 +33,8 @@ export class CasosPage implements OnInit {
   public sexo;
   public sexoL:Array<any> = [];
   public sexoD:Array<any> = [];
+
+  private arreglo:Array<any> = []
 
   private spinner;
   
@@ -88,26 +91,10 @@ export class CasosPage implements OnInit {
   getAge(){
     this.service.getAge().subscribe((data)=>{
       console.log("Data",data.length)
-      
-      this.edades.push(data.filter((n:number)=> n[14] <= 9).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
-      this.edades.push(data.filter((n:number)=> n[14] >= 90).length)
-      //console.log("menor igual 9",this.edades[0])
-      //console.log("mayor igual 10  menor igual 19",this.edades[1])
-      /*let count=0;
-      for(let i=0;i<this.edades.length;i++){
-        console.log(this.edades[i])
-        count+=this.edades[i]
-      }
-
-      console.log("Contador",count)*/
+      this.arreglo = data;
+      this.confirmedByAge(); 
+      this.confirmedMByAgeAndSex();
+      this.confirmedFByAgeAndSex();
 
     })
   }
@@ -139,5 +126,57 @@ export class CasosPage implements OnInit {
     }
   }
 
+  confirmedByAge(){
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] <= 9).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+      this.edades.push(this.arreglo.filter((n:number)=> n[14] >= 90).length)
+
+     
+  }
+
+  confirmedMByAgeAndSex(){
+      const MASCULINO = this.arreglo.filter((n:string)=> n[15].toUpperCase()  == 'M')
+      
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] <= 9).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+      this.hombres.push(MASCULINO.filter((n:number)=> n[14] >= 90).length)
+
+      let cont = 0
+      for (let index = 0; index < this.edades.length; index++) {
+        const element = this.edades[index];
+        cont+=this.hombres[index]
+      }
+      console.log("Cont edades",cont)
+  }
+
+  confirmedFByAgeAndSex(){
+    const FEMENINO = this.arreglo.filter((n:string)=> n[15].toUpperCase() == 'F')
+    
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] <= 9).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+    this.mujeres.push(FEMENINO.filter((n:number)=> n[14] >= 90).length)
+    
+}
 
 }

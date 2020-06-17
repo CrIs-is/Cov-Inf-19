@@ -12,9 +12,11 @@ export class GraficasComponent implements OnInit {
   @ViewChild('canvas', {static: true}) canvas;
   @Input() labels:Array<string> = null;
   @Input() data:Array<string>= null;
+  @Input() colores:Array<string>= null;
   public barss;
+  
   constructor() { 
-    
+    this.colores =['#0275d8', '#d83966']
   }
 
   
@@ -42,8 +44,8 @@ export class GraficasComponent implements OnInit {
         datasets: [{
           label:  'Covid-19 en colombia',
           data: this.data,
-          backgroundColor: ['#0275d8', '#d83966'],
-          borderColor: ['#0275d8', '#d83966'],
+          backgroundColor: this.colores,
+          borderColor: this.colores,
           borderWidth: 1,
         }]
       },

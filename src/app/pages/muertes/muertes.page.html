@@ -16,17 +16,46 @@
     <ion-slides pager="false" [options]="sliderConfig" (ionSlideDidChange)="slidesEvent($event)" #slides>
 
 
+        <!---Grafica chart-bar-->
         <ion-slide>
-
-
-            <div class="welcome-card">
-                <canvas #muertesBar></canvas>
-            </div>
-
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Muertes por Departamentos</h6>
+                <app-bar-chart [data]="departamentosD" [label]="departamentosL"></app-bar-chart>
+            </ion-card>
         </ion-slide>
+
+        <!---Grafica chart-donught-->
         <ion-slide>
-            s
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Muertes por sexo</h6>
+                <ion-card-content>
+                    <app-graficas [labels]="['F', 'M']" [data]="deathsD"></app-graficas>
+                </ion-card-content>
+            </ion-card>
         </ion-slide>
+
+
+        <!--pie chart-->
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Muerrtes por edad</h6>
+                <ion-card-content>
+                    <app-pie-chart [labels]="labelEdades" [data]="edades" [colores]="colorArray"></app-pie-chart>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+
+        <!--Horizontal chart-->
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Muertes por edad y sexo</h6>
+                <ion-card-content>
+                    <app-horizontal-chart [data]="deathsMaleByAge" [data2]="deathsFemaleByAge"></app-horizontal-chart>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+
+
     </ion-slides>
 
 </ion-content>

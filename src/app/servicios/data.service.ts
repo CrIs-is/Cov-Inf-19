@@ -12,7 +12,6 @@ import { map, filter } from 'rxjs/operators';
 })
 export class DataService {
 
-  
   constructor(private http: HttpClient,private nativeHttp: HTTP, public _platform: Platform,public alerte: AlertController ) {
     //this.url = 'https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD';
     
@@ -75,6 +74,15 @@ export class DataService {
        )
   }
 
+  getAgeD(){
+    return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)
+       /*return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)*/
+       .pipe(map((data: any)=>{
+         return data.data
+       })
+       )
+  }
+
   getMes(fecha : string){
    /* const marzo = this.nativeHttp.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/colombia`,{},{
       'Content-Type':'aplication/json'
@@ -89,5 +97,19 @@ export class DataService {
   
   getLocationIp(){
     return this.http.get(`http://ip-api.com/json`)
+  }
+
+  getAtencion(){
+    return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)
+    .pipe(map((data:any)=>{
+      return data.meta.view.columns[13].cachedContents.top
+    }))
+  }
+
+  getEstado(){
+    return this.http.get(`https://www.datos.gov.co/api/views/gt2j-8ykr/rows.json?accessType=DOWNLOAD`)
+    .pipe(map((data:any)=>{
+      return data.meta.view.columns[17].cachedContents.top
+    }))
   }
 }

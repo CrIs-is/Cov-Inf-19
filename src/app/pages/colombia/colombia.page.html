@@ -72,22 +72,25 @@
                 <ion-icon name="home-outline"></ion-icon>
                 <ion-label>Detalles</ion-label>
 
+
             </ion-tab-button>
 
             <ion-tab-button tab="casos">
                 <ion-icon name="flag-outline"></ion-icon>
                 <ion-label>Casos</ion-label>
-
+                <ion-badge color="primary">{{colombia.today_new_confirmed}}</ion-badge>
             </ion-tab-button>
 
             <ion-tab-button tab="muertes">
                 <ion-icon name="skull-outline"></ion-icon>
                 <ion-label>Muertes</ion-label>
+                <ion-badge color="danger">{{colombia.today_new_deaths}}</ion-badge>
             </ion-tab-button>
 
             <ion-tab-button tab="recuperados">
                 <ion-icon name="thumbs-up-outline"></ion-icon>
                 <ion-label>Recuperados</ion-label>
+                <ion-badge color="success">{{colombia.today_new_recovered}}</ion-badge>
             </ion-tab-button>
 
 

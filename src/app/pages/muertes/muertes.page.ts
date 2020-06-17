@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { DataService } from '../../servicios/data.service';
 import { IonSlides } from '@ionic/angular';
 import * as moment from 'moment';
-import { Pais } from 'src/app/models/pais.interface';
-import { Chart } from 'chart.js';
+import { MuertesService } from '../../servicios/muertes.service';
+import { Departamento } from '../../models/departamento.interface';
 
 @Component({
   selector: 'app-muertes',
@@ -12,6 +11,8 @@ import { Chart } from 'chart.js';
 })
 export class MuertesPage implements OnInit {
 
+  @ViewChild('slides', {static: true}) slides:IonSlides;
+
   sliderConfig = {
     slidesPerView: 1,
     spaceBetween: 0,
@@ -19,25 +20,141 @@ export class MuertesPage implements OnInit {
     autoHeight: true
   };
 
-  private colombia:Pais;
-
-  @ViewChild('slides', {static: true}) slides:IonSlides;
- 
   public fechaActual =  moment().format();
 
-
-  @ViewChild('muertesBar',{static: true}) muertesBar;
-  bars: any;
-  colorArray: any[];
+  public muertes:any = [];
   departamentosL:Array<any> =[];
   departamentosD:Array<any> =[];
-  departamentos:Array<any> =[];
-  constructor(private service: DataService) { }
+
+  public deaths:any = [];
+  public edades = [];
+
+  public deathsMaleByAge = [];
+  public deathsFemaleByAge = [];
+
+  public deathsD  = [];
+
+  colorArray:Array<any> = [];
+  labelEdades:Array<string> = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '>= 90']
+
+  constructor(private service: MuertesService) { }
 
   ngOnInit() {
     this.generateColorArray(33);
     this.fechaActual = this.fechaActual.substr(0,10);
-    this.getData(this.fechaActual);
+    this.deathsBySex();
+    this.getDeathAll(this.fechaActual);
+  }
+
+   getDeathAll(fecha: string){
+    this.service.getAllRegions(fecha).subscribe(
+      (data)=>{
+              
+        console.log("datos",data);
+        data.forEach((item:Departamento)=>{
+          this.departamentosD.push(item.today_deaths)
+          this.departamentosL.push(item.name)
+        })
+        console.log(this.departamentosL)
+        },
+        (error)=>{
+          console.log(error)
+        },
+        ()=>{
+          console.log("Complete")
+         
+        }
+    )
+  }
+
+  deathsBySex(){
+    this.service.getDeathsBySex().subscribe((data)=>{
+      this.muertes = data.filter((n:string)=> n[13].toUpperCase() == 'FALLECIDO');
+      
+    },error=> console.log(error),
+    ()=>{
+      this.deathsFemale();
+      this.deathsMale();
+      this.deathsByAge();
+      this.deathsFByAgeAndSex();
+    }
+    )
+    
+  }
+
+  deathsFemale(){
+    this.deaths.push(this.muertes.filter((n:string)=> n[15].toUpperCase() == 'F'))
+    this.deathsD.push(this.deaths[0].length);
+   // console.log(this.deaths[0])
+  };
+  deathsMale(){
+    this.deaths.push(this.muertes.filter((n:string)=> n[15].toUpperCase() == 'M'))
+    //console.log(this.deaths[1].length)
+    this.deathsD.push(this.deaths[1].length);
+    this.deathsMByAgeAndSex();
+  };
+
+  deathsByAge(){
+    this.edades.push(this.muertes.filter((n:number)=> n[14] <= 9).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+    this.edades.push(this.muertes.filter((n:number)=> n[14] >= 90).length)
+  
+}
+
+deathsMByAgeAndSex(){
+
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] <= 9).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 90).length)
+
+  //console.log("Cont edades",this.deathsMaleByAge[9])
+}
+
+
+deathsFByAgeAndSex(){
+
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] <= 9).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 90).length)
+
+  //console.log("Cont edades",this.deathsMaleByAge[9])
+}
+
+
+
+
+
+  slideNext(){
+    this.slides.slideNext(1000);
+  }
+
+  slidePrevius(){
+    this.slides.slidePrev(1000);
+  }
+
+  slidesEvent(event){
+    //console.log(event)
   }
 
   generateColorArray(num: number) {
@@ -45,77 +162,6 @@ export class MuertesPage implements OnInit {
     for (let i = 0; i < num; i++) {
       this.colorArray.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     }
-  }
-
-  createBarChart() {
-    
-    // Chart.defaults.global.defaultFontColor = 'white';
-     let ctx = this.muertesBar.nativeElement;
-     ctx.height = 400;
-     this.bars = new Chart(ctx, {
-       type: 'bar',
-       defaultFontSize	: 45,
-       data: {
-         labels: this.departamentosL,
-         datasets: [{
-           label:  'Muertes',
-           data: this.departamentosD,
-           backgroundColor: this.colorArray,
-           borderColor: this.colorArray,
-           borderWidth: 1,
-         }]
-       },
-       options: {
-         legend: {
-           labels: {
-               // This more specific font property overrides the global property
-               fontColor: 'white',
-               //defaultFontSize: '4px',
-           },
-       },
-         scales: {
-           yAxes: [{
-             ticks: {
-               beginAtZero: true
-             }
-           }]
-         }
-       }
-     });
-   }
-
-   getData(fecha: string){
-    this.service.getColombia(fecha).subscribe(
-      (data)=>{
-        //const res = JSON.parse(data.data)
-        this.departamentos = data.regions
-        console.log("datos",this.departamentos)
-        for(var item of this.departamentos){
-          this.departamentosL.push(item.name)
-          this.departamentosD.push(item.today_deaths)
-        }
-        },
-        (error)=>{
-          console.log(error)
-        },
-        ()=>{
-          this.createBarChart()
-          console.log("Complete")
-          //this.spinner.dismiss();
-        }
-    )
-  }
-
-  slideNext(){
-    this.slides.slideNext(2000);
-  }
-
-  slidePrevius(){
-    this.slides.slidePrev(2000);
-  }
-
-  slidesEvent(event){
-    //console.log(event)
   }
 
 }

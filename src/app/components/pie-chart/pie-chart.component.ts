@@ -33,7 +33,7 @@ export class PieChartComponent implements OnInit {
   createPieChart() {
     console.log("creando pieChart")
     let ctx = this.canvas.nativeElement;
-    ctx.height = 350;
+    ctx.height = 400;
     this.bars = new Chart(ctx, {
       type: 'pie',
       //defaultFontSize	: 45,

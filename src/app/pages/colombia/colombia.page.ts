@@ -26,7 +26,8 @@ export class ColombiaPage implements OnInit {
   
   constructor(private router: Router,
     public modalController: ModalController,
-    private screenOrientation: ScreenOrientation) {
+    private screenOrientation: ScreenOrientation,
+    private service: DataService) {
 
     this.fechaActual = this.fechaActual.substr(0,10)
     this.colombia = {
@@ -47,7 +48,15 @@ export class ColombiaPage implements OnInit {
 
   ngOnInit() {
     //this.getDNativeColombia(this.fechaActual)
-    this.pantalla()
+    this. getData(this.fechaActual);
+    this.pantalla();
+  }
+
+  getData(fechaActual){
+    this.service.getColombia(fechaActual).subscribe((data)=>{
+      this.colombia = data;
+      console.log("Colombia para los badges",this.colombia)
+    })
   }
 
   //Detectando rotacion de pantalla
