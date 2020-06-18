@@ -10,8 +10,9 @@ import { Observable } from 'rxjs';
 export class HorizontalChartComponent implements OnInit {
 
   @ViewChild('canvas',{static:true}) canvas;
-  @Input() data:Array<number> = []
-  @Input() data2:Array<number> = []
+  @Input() data:Array<number> = [];
+  @Input() data2:Array<number> = [];
+  @Input() leyenda:string;
   private bars;
 
   constructor() { }

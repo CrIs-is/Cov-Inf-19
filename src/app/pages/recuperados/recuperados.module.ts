@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { RecuperadosPageRoutingModule } from './recuperados-routing.module';
 
 import { RecuperadosPage } from './recuperados.page';
+import { ComponentsModule } from '../../components/components.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RecuperadosPageRoutingModule
+    RecuperadosPageRoutingModule,
+    ComponentsModule
   ],
   declarations: [RecuperadosPage]
 })

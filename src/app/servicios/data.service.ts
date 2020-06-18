@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Platform, AlertController } from '@ionic/angular';
 import { HTTP } from '@ionic-native/http/ngx';
-import { fromEvent } from 'rxjs';
+import { fromEvent, from } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 
@@ -38,10 +38,6 @@ export class DataService {
 
   //Data del mundo
   getGlobal(fecha: string) {
-    /*let nativeCall =  this.nativeHttp.get(`https://api.covid19tracking.narrativa.com//api/${fecha}/country/*`,{},{
-    'Conten-Type':'aplication/json'
-    });
-    return from(nativeCall)*/
     return this.http.get(`https://api.covid19tracking.narrativa.com//api/${fecha}/country/*`)
     .pipe(map((data)=>{
       return data['total']
@@ -96,7 +92,10 @@ export class DataService {
   }
   
   getLocationIp(){
-    return this.http.get(`http://ip-api.com/json`)
+    let res = this.nativeHttp.get(`http://ip-api.com/json`,{},{
+      'Content-Type':'Aplication/json'
+    })
+    return from(res);
   }
 
   getAtencion(){

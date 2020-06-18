@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { LineChartComponent } from './line-chart.component';
+import { UbicacionPage } from './ubicacion.page';
 
-describe('LineChartComponent', () => {
-  let component: LineChartComponent;
-  let fixture: ComponentFixture<LineChartComponent>;
+describe('UbicacionPage', () => {
+  let component: UbicacionPage;
+  let fixture: ComponentFixture<UbicacionPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LineChartComponent ],
+      declarations: [ UbicacionPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LineChartComponent);
+    fixture = TestBed.createComponent(UbicacionPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, OnDestroy } from '@angular/core';
 import { Chart } from 'chart.js';
 import { Observable } from 'rxjs';
 
@@ -7,22 +7,24 @@ import { Observable } from 'rxjs';
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
 })
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnInit{
 
   @Input() label:Array<string>
-  @Input() data:Array<number>
+  @Input() data:Array<number>  = []
+  @Input() leyenda:string;
   @ViewChild('canvas', {static: true}) canvas;
 
   colorArray:any;
   bars: any;
+  suscription: any;
   constructor() { }
 
   ngOnInit() {
     this.generateColorArray(33) ;
-    let suscription = this.getData().subscribe((data)=>{
+    this.suscription = this.getData().subscribe((data)=>{
      // console.log(data)
       this.createBarChart();
-      suscription.unsubscribe()
+      this.suscription.unsubscribe()
     },error => console.log("Ha ocurriod un error"),
     ()=>{
       
@@ -47,7 +49,7 @@ export class BarChartComponent implements OnInit {
        data: {
          labels: this.label,
          datasets: [{
-           label:  'Casos',
+           label:  this.leyenda,
            data: this.data,
            backgroundColor: this.colorArray,
            borderColor: this.colorArray,
@@ -91,4 +93,5 @@ export class BarChartComponent implements OnInit {
       }
     })
   }
+
 }

@@ -18,7 +18,7 @@ export class NoticiasPage implements OnInit {
   slideOpts = {
     autoplay: true,
     initialSlide: 10,
-    speed: 500,
+    speed: 100,
     on: {
       beforeInit() {
         const swiper = this;

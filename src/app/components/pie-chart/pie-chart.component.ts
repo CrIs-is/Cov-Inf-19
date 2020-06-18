@@ -11,6 +11,7 @@ export class PieChartComponent implements OnInit {
   @Input() labels: any;
   @Input() data: any;
   @Input() colores: any;
+  @Input() leyenda:string;
 
   @ViewChild('canvasPie',{static: true}) canvas;
   private bars;

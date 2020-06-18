@@ -39,7 +39,7 @@
 }
 
 .slide {
-    height: 210px;
+    height: 250px;
     img {
         height: 100%;
         width: 100%;
@@ -53,13 +53,13 @@
 
 .goLeft {
     position: absolute;
-    top: 100px;
+    top: 130px;
     z-index: 50;
 }
 
 .goRight {
     position: absolute;
-    top: 100px;
+    top: 130px;
     z-index: 50;
     right: 0;
 }

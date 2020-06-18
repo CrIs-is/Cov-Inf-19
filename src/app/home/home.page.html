@@ -1,11 +1,11 @@
 <ion-content color="oscuro">
-    <div class="imagen">
-        <ion-card-content>
-            <ion-img src="../../assets/logo4.png"></ion-img>
-        </ion-card-content>
-    </div>
+
+    <ion-card-content>
+        <ion-img src="../../assets/logo4.png"></ion-img>
+    </ion-card-content>
 
 
+    <!--
     <ion-item lines="none" button class="ion-margin" color="dark" routerLink="/ultimas-cifras">
         <ion-icon color="primary" slot="start" name="cellular-outline"></ion-icon>
         <ion-label>
@@ -27,8 +27,54 @@
         </ion-label>
     </ion-item>
 
+    -->
 
+    <div>
+        <ion-card button id="cifras" mode="ios" (click)="goToCifras()">
 
+        </ion-card>
+    </div>
+
+    <ion-item color="oscuro" lines="none" button (click)="cifras()">
+        <ion-icon *ngIf="!cifra" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
+        <ion-icon *ngIf="cifra" color="primary" slot="start" name="caret-down-outline"></ion-icon>
+        <h3>Ultimas Cifras</h3>
+    </ion-item>
+    <ion-card-content *ngIf="cifra" [ngClass]="['animate__animated','animate__fadeInDown']">
+        Enterese de los casos, muertes y recuperados de covid-19, nuestras cifras se actualizan diariamente, asi podras estar al tanto de lo que pasa en colombia y el mundo entero
+    </ion-card-content>
+
+    <div>
+        <ion-card button id="noticias" mode="ios" (click)="goToNoticias()">
+
+        </ion-card>
+    </div>
+
+    <ion-item color="oscuro" lines="none" button (click)="noticias()">
+        <ion-icon *ngIf="!noticia" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
+        <ion-icon *ngIf="noticia" color="primary" slot="start" name="caret-down-outline"></ion-icon>
+        <h3>Ultimas Noticias</h3>
+    </ion-item>
+
+    <ion-card-content *ngIf="noticia" [ngClass]="['animate__animated','animate__fadeInDown']">
+        Enterese y comparta las ultimas noticias sobre la salud y covid-19,estas noticias se actualizan diariamente
+    </ion-card-content>
+
+    <div>
+        <ion-card button id="geolocalizacion" mode="ios" (click)="getGeolocation()">
+
+        </ion-card>
+    </div>
+
+    <ion-item color="oscuro" lines="none" button (click)="goToLocation()">
+
+        <ion-icon *ngIf="!local" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
+        <ion-icon *ngIf="local" color="primary" slot="start" name="caret-down-outline"></ion-icon>
+        <h3>Covid en tu departamento</h3>
+    </ion-item>
+    <ion-card-content *ngIf="local" [ngClass]="['animate__animated','animate__fadeInDown']">
+        Permite el acceso a tu ubicacion para mantenerte al tanto de informacion sobre covid-19 en tu departamento y ciudad
+    </ion-card-content>
 
 
 </ion-content>

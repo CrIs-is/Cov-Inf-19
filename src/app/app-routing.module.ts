@@ -19,12 +19,7 @@ const routes: Routes = [
   {
     path: 'recuperados',
     loadChildren: () => import('./pages/recuperados/recuperados.module').then( m => m.RecuperadosPageModule)
-  },
-  {
-    path: 'popover',
-    loadChildren: () => import('./components/popover/popover.module').then( m => m.PopoverPageModule)
-  },
-  
+  },  
   {
     path: 'modal',
     loadChildren: () => import('./components/modal/modal.module').then( m => m.ModalPageModule)
@@ -45,6 +40,14 @@ const routes: Routes = [
   {
     path: 'ultimas-cifras',
     loadChildren: () => import('./pages/ultimas-cifras/ultimas-cifras.module').then( m => m.UltimasCifrasPageModule)
+  },
+  {
+    path: 'planeta',
+    loadChildren: () => import('./mundo/planeta/planeta.module').then( m => m.PlanetaPageModule)
+  },
+  {
+    path: 'ubicacion:/region',
+    loadChildren: () => import('./ubicacion/ubicacion.module').then( m => m.UbicacionPageModule)
   },
 ];
 

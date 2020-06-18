@@ -102,8 +102,8 @@ export class CasosPage implements OnInit {
   async presentLoading() {
     this.spinner = await  this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Actualizando información',
-      duration: 3000
+      message: 'Actualizando información..',
+      duration: 2000
     });
     await this.spinner.present();
 

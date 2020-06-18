@@ -18,17 +18,17 @@
         <!---Grafica chart-bar-->
         <ion-slide>
             <ion-card class="welcome-card" color="oscuro">
-                Casos por región
-                <app-bar-chart [data]="departamentosD" [label]="departamentosL"></app-bar-chart>
+                <h3> Casos por región</h3>
+                <app-bar-chart [data]="departamentosD" [label]="departamentosL" [leyenda]="'Casos'"></app-bar-chart>
             </ion-card>
         </ion-slide>
 
         <!---Grafica chart-donught-->
         <ion-slide>
             <ion-card class="welcome-card" color="oscuro">
-                Casos por sexo
+                <h3> Casos por sexo</h3>
                 <ion-card-content>
-                    <app-graficas [labels]="['M', 'F']" [data]="sexoD"></app-graficas>
+                    <app-graficas [labels]="['M', 'F']" [data]="sexoD" [leyenda]="'Casos'"></app-graficas>
                 </ion-card-content>
             </ion-card>
         </ion-slide>
@@ -36,9 +36,9 @@
         <!--pie chart-->
         <ion-slide>
             <ion-card class="welcome-card" color="oscuro">
-                Casos por edad
+                <h3> Casos por edad</h3>
                 <ion-card-content>
-                    <app-pie-chart [labels]="labelEdades" [data]="edades" [colores]="colorArray"></app-pie-chart>
+                    <app-pie-chart [labels]="labelEdades" [data]="edades" [colores]="colorArray" [leyenda]="'Casos'"></app-pie-chart>
                 </ion-card-content>
             </ion-card>
         </ion-slide>
@@ -46,9 +46,9 @@
         <!--Horizontal chart-->
         <ion-slide>
             <ion-card class="welcome-card" color="oscuro">
-                Casos por edad y sexo
+                <h3> Casos por edad y sexo</h3>
                 <ion-card-content>
-                    <app-horizontal-chart [data]="hombres" [data2]="mujeres"></app-horizontal-chart>
+                    <app-horizontal-chart [data]="hombres" [data2]="mujeres" [leyenda]="'Casos'"></app-horizontal-chart>
                 </ion-card-content>
             </ion-card>
         </ion-slide>

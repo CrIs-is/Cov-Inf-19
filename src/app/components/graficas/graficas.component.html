@@ -1,3 +1,6 @@
 <div>
+    <div *ngIf="data.length == 0">
+        <ion-spinner name="circles"></ion-spinner>
+    </div>
     <canvas #canvas height="400"></canvas>
 </div>

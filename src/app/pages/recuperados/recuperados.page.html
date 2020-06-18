@@ -1,9 +1,59 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>recuperados</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content color="oscuro">
+    <ion-toolbar color="black">
+        <ion-buttons slot="start">
+            <ion-button color="primary" (click)="slidePrevius()">
+                <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="primary">
+            <ion-button color="primary" (click)="slideNext()">
+                <ion-icon slot="icon-only" name="chevron-forward-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
 
-<ion-content>
+    </ion-toolbar>
+
+    <ion-slides pager="false" [options]="sliderConfig" #slides>
+
+
+        <!---Grafica chart-bar-->
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Recuperados por Departamentos</h6>
+                <app-bar-chart [data]="departamentosD" [label]="departamentosL" [leyenda]="'Recuperados'"></app-bar-chart>
+            </ion-card>
+        </ion-slide>
+
+
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Recuperados por sexo</h6>
+                <ion-card-content>
+                    <app-graficas [labels]="['F', 'M']" [data]="recoveredD"></app-graficas>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Recuperados por edad</h6>
+                <ion-card-content>
+                    <app-pie-chart [labels]="labelEdades" [data]="edades" [colores]="colorArray"></app-pie-chart>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+
+
+        <ion-slide>
+            <ion-card class="welcome-card" color="oscuro">
+                <h6>Recuperados por edad y sexo</h6>
+                <ion-card-content>
+                    <app-horizontal-chart [data]="recoveredMaleByAge" [data2]="recoveredFemaleByAge"></app-horizontal-chart>
+                </ion-card-content>
+            </ion-card>
+        </ion-slide>
+
+
+    </ion-slides>
 
 </ion-content>

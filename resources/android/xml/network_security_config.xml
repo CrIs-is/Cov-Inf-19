@@ -3,5 +3,6 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">localhost</domain>
         <domain includeSubdomains="true">newsapi.org</domain>
+        <domain includeSubdomains="true">http://ip-api.com/json</domain>
     </domain-config>
 </network-security-config>

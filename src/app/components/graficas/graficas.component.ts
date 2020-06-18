@@ -13,6 +13,7 @@ export class GraficasComponent implements OnInit {
   @Input() labels:Array<string> = null;
   @Input() data:Array<string>= null;
   @Input() colores:Array<string>= null;
+  @Input() leyenda:string;
   public barss;
   
   constructor() { 

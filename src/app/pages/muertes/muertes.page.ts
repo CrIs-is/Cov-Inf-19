@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, LoadingController } from '@ionic/angular';
 import * as moment from 'moment';
 import { MuertesService } from '../../servicios/muertes.service';
 import { Departamento } from '../../models/departamento.interface';
@@ -37,7 +37,9 @@ export class MuertesPage implements OnInit {
   colorArray:Array<any> = [];
   labelEdades:Array<string> = ['0-9', '10-19', '20-29', '30-39', '40-49', '50-59', '60-69', '70-79', '80-89', '>= 90']
 
-  constructor(private service: MuertesService) { }
+  constructor(private service: MuertesService,private loadingController: LoadingController) {
+    this.presentLoading();
+   }
 
   ngOnInit() {
     this.generateColorArray(33);
@@ -108,42 +110,38 @@ export class MuertesPage implements OnInit {
   
 }
 
-deathsMByAgeAndSex(){
+  deathsMByAgeAndSex(){
 
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] <= 9).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
-  this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 90).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] <= 9).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+    this.deathsMaleByAge.push(this.deaths[1].filter((n:number)=> n[14] >= 90).length)
 
-  //console.log("Cont edades",this.deathsMaleByAge[9])
-}
-
-
-deathsFByAgeAndSex(){
-
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] <= 9).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
-  this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 90).length)
-
-  //console.log("Cont edades",this.deathsMaleByAge[9])
-}
+    //console.log("Cont edades",this.deathsMaleByAge[9])
+  }
 
 
+  deathsFByAgeAndSex(){
 
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] <= 9).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 10 && n[14] <= 19).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 20 && n[14] <= 29).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 30 && n[14] <= 39).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 40 && n[14] <= 49).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 50 && n[14] <= 59).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 60 && n[14] <= 69).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 70 && n[14] <= 79).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 80 && n[14] <= 89).length)
+    this.deathsFemaleByAge.push(this.deaths[0].filter((n:number)=> n[14] >= 90).length)
 
+    //console.log("Cont edades",this.deathsMaleByAge[9])
+  }
 
   slideNext(){
     this.slides.slideNext(1000);
@@ -162,6 +160,18 @@ deathsFByAgeAndSex(){
     for (let i = 0; i < num; i++) {
       this.colorArray.push('#' + Math.floor(Math.random() * 16777215).toString(16));
     }
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'my-custom-class',
+      message: 'Actualizando informacion..',
+      duration: 2000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    //console.log('Loading dismissed!');
   }
 
 }

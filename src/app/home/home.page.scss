@@ -1,7 +1,8 @@
-#logo {
-    height: 40px;
-    width: 40px;
-    margin-left: 4px;
+ion-img {
+    height: 200px;
+    width: 200px;
+    //margin-left: 4px;
+    margin: 0px auto;
 }
 
 .badge-new-today {
@@ -27,4 +28,27 @@ ion-item {
     width: 80%;
     height: 250px;
     margin: 0px auto;
+}
+
+div {
+    height: 125px;
+}
+
+#cifras {
+    --background: #fff url('../../assets/cifras.jpg') no-repeat center center / cover;
+    height: 100%;
+}
+
+#noticias {
+    --background: #fff url('../../assets/noticias.jpg') no-repeat center center / cover;
+    height: 100%;
+}
+
+#geolocalizacion {
+    --background: #fff url('../../assets/geolocalizacion.jpg') no-repeat center center / cover;
+    height: 100%;
+}
+
+ion-item {
+    margin: 5px 10px;
 }
