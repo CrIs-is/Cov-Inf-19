@@ -22,8 +22,6 @@ export class ColombiaPage implements OnInit {
 
   public colombia:Pais;
  
- 
-  
   constructor(private router: Router,
     public modalController: ModalController,
     private screenOrientation: ScreenOrientation,
@@ -31,6 +29,7 @@ export class ColombiaPage implements OnInit {
 
     this.fechaActual = this.fechaActual.substr(0,10)
     this.colombia = {
+      date:'',
       today_confirmed:null,
       id:'',
       name:'',

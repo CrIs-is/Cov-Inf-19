@@ -99,15 +99,16 @@ export class CasosPage implements OnInit {
     })
   }
 
+  //Components 
   async presentLoading() {
-    this.spinner = await  this.loadingController.create({
+    const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Actualizando información..',
+      message: 'Actualizando información...',
       duration: 2000
     });
-    await this.spinner.present();
+    await loading.present();
 
-    const { role, data } = await this.spinner.onDidDismiss();
+    const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
 

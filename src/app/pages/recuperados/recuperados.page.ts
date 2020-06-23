@@ -152,10 +152,11 @@ deathsFByAgeAndSex(){
     }
   }
 
+  //Components 
   async presentLoading() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Actualizando informacion..',
+      message: 'Actualizando información...',
       duration: 2000
     });
     await loading.present();

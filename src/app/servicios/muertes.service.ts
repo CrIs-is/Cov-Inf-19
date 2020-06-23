@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, filter } from 'rxjs/operators';
+import { Pais } from '../models/pais.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,21 @@ export class MuertesService {
          return data;
        })
     );
+  }
+
+  getAllPaises(fecha: string){
+    return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}`).pipe(
+      map(response =>{
+        return response['dates'][fecha]['countries']
+    }))
+  }
+
+  getCountry(fecha: string,id: string){
+    let nombre = ''
+    return this.http.get(`https://api.covid19tracking.narrativa.com/api/${fecha}/country/${id}`).pipe(
+      map((res:any): Pais => {
+        return res['dates'][fecha]['countries'][id.charAt(0).toUpperCase() + id.slice(1)]
+      })
+    )
   }
 }

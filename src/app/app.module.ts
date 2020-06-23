@@ -16,7 +16,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {faCoffee} from  '@fortawesome/free-solid-svg-icons';
 
 import { ModalPage } from './components/modal/modal.page';
-import { FindDepPipe } from './pipes/find-dep.pipe';
+
 
 //plugins
 import { HTTP } from '@ionic-native/http/ngx';
@@ -29,7 +29,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 library.add(faCoffee)
 
 @NgModule({
-  declarations: [AppComponent,ModalPage, FindDepPipe,  ParallaxHeaderDirective],
+  declarations: [AppComponent,ModalPage,  ParallaxHeaderDirective],
   entryComponents: [ModalPage],
   imports: [BrowserModule,
      IonicModule.forRoot(), 

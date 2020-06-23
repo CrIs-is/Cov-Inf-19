@@ -25,6 +25,9 @@ export class HomePage implements OnInit,OnDestroy{
   }
 
   ngOnInit(){
+    setTimeout(()=>{
+      this.cifra = true;
+    },1500)
     this.exitApp();
   }
 

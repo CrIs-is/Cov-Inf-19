@@ -1,0 +1,26 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar color="dark" class="ion-text-center">
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" text="" defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <img src="../../../assets/icono.png" alt="" width="45" height="50">
+    </ion-toolbar>
+</ion-header>
+
+<ion-content color="oscuro">
+
+    <ion-searchbar color="oscuro" placeholder="Find your country" (ionChange)="onSearchChange($event)" [debounce]="250"></ion-searchbar>
+    <ion-item *ngFor="let item of data |findDep:filtrar" color="oscuro" lines="full" detail (click)="goToDetail(item.id)">
+        <ion-icon name="flag" color="primary" slot="start"></ion-icon>
+        <ion-label slot="start">
+            <h3>{{item.name}}</h3>
+            <p>Regions: {{item.regions.length}}</p>
+
+        </ion-label>
+        <ion-text slot="end">
+            <h3>{{item.today_confirmed}} </h3>
+        </ion-text>
+    </ion-item>
+
+
+</ion-content>

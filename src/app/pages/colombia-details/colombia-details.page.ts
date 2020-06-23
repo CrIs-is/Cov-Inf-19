@@ -21,7 +21,7 @@ export class ColombiaDetailsPage implements OnInit {
     autoHeight: true
   };
 
-  private colombia:Pais;
+  public colombia:Pais;
 
   //References
   @ViewChild('lineChart', {static: true}) lineChart;
@@ -35,7 +35,7 @@ export class ColombiaDetailsPage implements OnInit {
   line: any
   colorArray:any;
 
-  private data:Array<any>=[];
+  public data:Array<any>=[];
 
   public atencionL:Array<string> = [];
   public atencionD:Array<string> = [];
@@ -46,11 +46,12 @@ export class ColombiaDetailsPage implements OnInit {
   public mesesDConfirmed:Array<any> = [0,0];
   public mesesDRecovered:Array<any> = [0,0];
   public mesesDDeaths:Array<any> = [0,0];
-  private spinner;
+
 
   constructor( private service: DataService, private loadingController: LoadingController,public toastController: ToastController) {
     this.presentLoading();
       this.colombia = {
+        date:'',
         today_confirmed:0,
         id:'',
         name:'',
@@ -245,14 +246,14 @@ export class ColombiaDetailsPage implements OnInit {
 
   //Components 
   async presentLoading() {
-    this.spinner = await this.loadingController.create({
+    const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
-      message: 'Actualizando información',
-      duration: 3000
+      message: 'Actualizando información...',
+      duration: 2000
     });
-     this.spinner.present();
+    await loading.present();
 
-    //const { role, data } = await this.spinner.onDidDismiss();
+    const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
   }
 

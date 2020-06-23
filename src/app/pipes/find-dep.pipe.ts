@@ -5,8 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FindDepPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
-    return null;
+  transform(arreglo: any[], texto: string): any[] {
+
+    if (texto === '') {
+      return arreglo;
+    }
+
+    texto = texto.toLowerCase();
+
+    return arreglo.filter( item => {
+      return item.name.toLowerCase().includes(texto);
+    });
   }
+
 
 }

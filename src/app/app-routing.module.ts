@@ -46,8 +46,16 @@ const routes: Routes = [
     loadChildren: () => import('./mundo/planeta/planeta.module').then( m => m.PlanetaPageModule)
   },
   {
-    path: 'ubicacion:/region',
+    path: 'ubicacion/:region',
     loadChildren: () => import('./ubicacion/ubicacion.module').then( m => m.UbicacionPageModule)
+  },
+  {
+    path: 'paises-list',
+    loadChildren: () => import('./pages/paises-list/paises-list.module').then( m => m.PaisesListPageModule)
+  },
+  {
+    path: 'pais-detail/:pais',
+    loadChildren: () => import('./pages/pais-detail/pais-detail.module').then( m => m.PaisDetailPageModule)
   },
 ];
 

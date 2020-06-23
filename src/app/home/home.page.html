@@ -1,9 +1,18 @@
 <ion-content color="oscuro">
+    <ion-card-content class="ion-text-center">
+        <ion-label color="primary">
+            <h1>
+                Cov-Inf-19
+            </h1>
+        </ion-label>
 
-    <ion-card-content>
-        <ion-img src="../../assets/logo4.png"></ion-img>
+
     </ion-card-content>
+    <section [ngClass]="['animate__animated','animate__fadeInDown']">
 
+        <ion-img src="../../assets/icono.png"></ion-img>
+
+    </section>
 
     <!--
     <ion-item lines="none" button class="ion-margin" color="dark" routerLink="/ultimas-cifras">
@@ -29,13 +38,13 @@
 
     -->
 
-    <div>
+    <div class="animate__animated animate__slideInLeft">
         <ion-card button id="cifras" mode="ios" (click)="goToCifras()">
 
         </ion-card>
     </div>
 
-    <ion-item color="oscuro" lines="none" button (click)="cifras()">
+    <ion-item color="oscuro" lines="none" button (click)="cifras()" class="animate__animated animate__slideInLeft">
         <ion-icon *ngIf="!cifra" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <ion-icon *ngIf="cifra" color="primary" slot="start" name="caret-down-outline"></ion-icon>
         <h3>Ultimas Cifras</h3>
@@ -44,13 +53,16 @@
         Enterese de los casos, muertes y recuperados de covid-19, nuestras cifras se actualizan diariamente, asi podras estar al tanto de lo que pasa en colombia y el mundo entero
     </ion-card-content>
 
-    <div>
+
+
+
+    <div class="nacional animate__animated">
         <ion-card button id="noticias" mode="ios" (click)="goToNoticias()">
 
         </ion-card>
     </div>
 
-    <ion-item color="oscuro" lines="none" button (click)="noticias()">
+    <ion-item color="oscuro" lines="none" button (click)="noticias()" class="nacional animate__animated">
         <ion-icon *ngIf="!noticia" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <ion-icon *ngIf="noticia" color="primary" slot="start" name="caret-down-outline"></ion-icon>
         <h3>Ultimas Noticias</h3>
@@ -60,13 +72,15 @@
         Enterese y comparta las ultimas noticias sobre la salud y covid-19,estas noticias se actualizan diariamente
     </ion-card-content>
 
+
+
     <div>
-        <ion-card button id="geolocalizacion" mode="ios" (click)="getGeolocation()">
+        <ion-card button id="geolocalizacion" mode="ios" (click)="getGeolocation()" class="departamento animate__animated">
 
         </ion-card>
     </div>
 
-    <ion-item color="oscuro" lines="none" button (click)="goToLocation()">
+    <ion-item color="oscuro" lines="none" button (click)="goToLocation()" class="departamento animate__animated">
 
         <ion-icon *ngIf="!local" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <ion-icon *ngIf="local" color="primary" slot="start" name="caret-down-outline"></ion-icon>

@@ -27,6 +27,7 @@ export class UltimasCifrasPage implements OnInit {
     ) {
 
       this.colombia = {
+        date:'',
         today_confirmed:null,
         id:'',
         name:'',
@@ -41,9 +42,16 @@ export class UltimasCifrasPage implements OnInit {
         yesterday_recovered:null,
       }
       this.global =  {
-        
-        today_confirmed: null,
+        today_deaths:null,
         today_new_confirmed: null,
+        //today_new_recovered:null,
+        //today_new_deaths:null,
+        today_recovered:null,
+        //yesterday_confirmed:null,
+       // yesterday_deaths:null,
+        //yesterday_recovered:null,
+        today_confirmed: null,
+        
         
       };
   }

@@ -1,4 +1,5 @@
 export interface Pais{
+    date:string,
     id: string,
     name: string,
     today_confirmed: number,
@@ -13,6 +14,8 @@ export interface Pais{
     yesterday_deaths:number,
     yesterday_recovered:number,
     regions: Array<any>,
+
+    source?:string
    
     
     

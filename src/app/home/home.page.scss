@@ -52,3 +52,21 @@ div {
 ion-item {
     margin: 5px 10px;
 }
+
+.nacional {
+    //display: inline-block;
+    //margin: 0 0.5rem;
+    animation: slideInLeft;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.2s;
+    /* don't forget to set a duration! */
+}
+
+.departamento {
+    //display: inline-block;
+    //margin: 0 0.5rem;
+    animation: slideInLeft;
+    /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s;
+    /* don't forget to set a duration! */
+}
