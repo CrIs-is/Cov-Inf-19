@@ -17,7 +17,7 @@ export class NoticiasPage implements OnInit {
 
   slideOpts = {
     autoplay: true,
-    initialSlide: 10,
+    initialSlide: 9,
     speed: 100,
     on: {
       beforeInit() {

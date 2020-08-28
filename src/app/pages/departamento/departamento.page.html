@@ -1,9 +1,42 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>departamento</ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="dark">
+        <ion-buttons slot="start">
+            <ion-back-button color="primary" defaultHref="home" text=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>Atlantico</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content color="oscuro">
+
+    <ion-card *ngFor="let municipio of municipios" color="dark">
+        <ion-card-content>
+            <ion-item color="dark">
+                <ion-icon color="primary" slot="start" name="business-outline"></ion-icon>
+                <ion-text slot="start" color="primary">
+                    <h3>{{municipio.nombre}}</h3>
+                </ion-text>
+            </ion-item>
+            <ion-item color="dark">
+                <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
+                <ion-label slot="start">Casos</ion-label>
+
+                <ion-text slot="end">{{municipio.casos}}</ion-text>
+            </ion-item>
+            <ion-item color="dark">
+                <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
+                <ion-label slot="start">Muertes</ion-label>
+                <ion-text slot="end">{{municipio.muertes}}</ion-text>
+            </ion-item>
+            <ion-item color="dark">
+                <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
+                <ion-label slot="start">Recuperados</ion-label>
+                <ion-text slot="end">{{municipio.recuperados}}</ion-text>
+            </ion-item>
+        </ion-card-content>
+
+
+
+    </ion-card>
 
 </ion-content>

@@ -21,7 +21,7 @@ export class HomePage implements OnInit,OnDestroy{
   public local:boolean = false;
   
 
-  constructor(private geolocation : Geolocation, private platform: Platform,private toast: ToastController,private router:Router,private service: DataService){
+  constructor(private platform: Platform,private toast: ToastController,private router:Router,private service: DataService){
   }
 
   ngOnInit(){
@@ -80,20 +80,7 @@ export class HomePage implements OnInit,OnDestroy{
     this.router.navigate(['/noticias'])
   }
 
-  getGeolocation(){
-    this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
-      this.goToLocation()
-      console.log(resp)
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
-  }
-
   goToLocation(){
-    this.service.getLocationIp().subscribe((resp)=>{
-      console.log(resp)
-    },err => console.log("Eee errorrr",err))
+    this.router.navigate(['/departamento'])
   }
 }

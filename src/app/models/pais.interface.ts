@@ -1,3 +1,4 @@
+import { Departamento } from './departamento.interface';
 export interface Pais{
     date:string,
     id: string,
@@ -13,7 +14,7 @@ export interface Pais{
     yesterday_confirmed:number,
     yesterday_deaths:number,
     yesterday_recovered:number,
-    regions: Array<any>,
+    regions: Departamento[],
 
     source?:string
    

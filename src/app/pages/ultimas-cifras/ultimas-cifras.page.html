@@ -28,14 +28,14 @@
                 <ion-item lines="none" color="dark">
                 </ion-item>
 
-                <ion-item lines="full" detail color="dark" routerLink="/colombia/casos">
+                <ion-item lines="full" color="dark">
                     <ion-icon slot="start" name="trending-up-sharp" color="primary"></ion-icon>
                     <ion-label>Confirmados</ion-label>
                     <ion-spinner *ngIf="global.today_confirmed == null" name="dots" color="light"></ion-spinner>
                     {{global.today_confirmed}}
 
                 </ion-item>
-                <ion-item lines="full" detail color="dark" routerLink="/colombia/muertes">
+                <ion-item lines="full" color="dark">
                     <ion-icon color="primary" slot="start" name="skull-sharp"></ion-icon>
                     <ion-label>Muertes</ion-label>
                     <ion-spinner *ngIf="global.today_deaths == null" name="dots" color="light"></ion-spinner>
@@ -43,7 +43,7 @@
 
                 </ion-item>
 
-                <ion-item lines="full" detail color="dark" routerLink="/colombia/recuperados">
+                <ion-item lines="full" color="dark">
                     <ion-icon slot="start" color="primary" name="pulse-sharp"></ion-icon>
                     <ion-label>Recuperados </ion-label>
                     <ion-spinner *ngIf="global.today_recovered == null" name="dots" color="light"></ion-spinner>

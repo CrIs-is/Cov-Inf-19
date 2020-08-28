@@ -90,7 +90,7 @@ export class ColombiaDetailsPage implements OnInit {
     this.line = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio'],
+        labels: ['Enero', 'Febrero', 'Marzo', 'Abril','Mayo','Junio','Julio','Agosto'],
         datasets: [
           {
             label: 'Muertes',
@@ -176,29 +176,37 @@ export class ColombiaDetailsPage implements OnInit {
   getDates(){
    forkJoin(
      this.service.getMes('2020-03-31'),this.service.getMes('2020-04-30'),this.service.getMes('2020-05-31')
-     ,this.service.getMes(this.fechaActual)
+     ,this.service.getMes('2020-06-30'),this.service.getMes('2020-07-31'),this.service.getMes(this.fechaActual)
    ).subscribe(
      (data)=>{
        console.log(data)
         const marzo = data[0]
         const abril = data[1]
-        const mayo = data[2]
+        const mayo =  data[2]
         const junio = data[3]
+        const julio = data[4]
+        const agosto = data[5]
 
        this.mesesDDeaths.push(marzo.today_deaths)
        this.mesesDDeaths.push(abril.today_deaths)
        this.mesesDDeaths.push(mayo.today_deaths)
        this.mesesDDeaths.push(junio.today_deaths)
+       this.mesesDDeaths.push(julio.today_deaths)
+       this.mesesDDeaths.push(agosto.today_deaths)
 
        this.mesesDRecovered.push(marzo.today_recovered)
        this.mesesDRecovered.push(abril.today_recovered)
        this.mesesDRecovered.push(mayo.today_recovered)
        this.mesesDRecovered.push(junio.today_recovered)
+       this.mesesDRecovered.push(julio.today_recovered)
+       this.mesesDRecovered.push(agosto.today_recovered)
 
        this.mesesDConfirmed.push(marzo.today_confirmed)
        this.mesesDConfirmed.push(abril.today_confirmed)
        this.mesesDConfirmed.push(mayo.today_confirmed)
        this.mesesDConfirmed.push(junio.today_confirmed)
+       this.mesesDConfirmed.push(julio.today_confirmed)
+       this.mesesDConfirmed.push(agosto.today_confirmed)
       
      },error => console.log,
      () =>{
@@ -228,6 +236,7 @@ export class ColombiaDetailsPage implements OnInit {
         this.estadoD.push(element.count);
       });
     })
+        
   }
 
   //Slide interaction

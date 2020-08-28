@@ -75,12 +75,12 @@
 
 
     <div>
-        <ion-card button id="geolocalizacion" mode="ios" (click)="getGeolocation()" class="departamento animate__animated">
+        <ion-card button id="geolocalizacion" mode="ios" (click)="goToLocation()" class="departamento animate__animated">
 
         </ion-card>
     </div>
 
-    <ion-item color="oscuro" lines="none" button (click)="goToLocation()" class="departamento animate__animated">
+    <ion-item color="oscuro" lines="none" button (click)="localizacion()" class="departamento animate__animated">
 
         <ion-icon *ngIf="!local" color="primary" slot="start" name="caret-forward-outline"></ion-icon>
         <ion-icon *ngIf="local" color="primary" slot="start" name="caret-down-outline"></ion-icon>

@@ -8,7 +8,126 @@
 </ion-header>
 
 <ion-content color="oscuro">
-    <ion-card-title class="ion-text-center">{{pais.name}}</ion-card-title>
+    <ion-card-content>
+        <ion-card-title class="ion-text-center">
+            <ion-text color="light">
+                {{pais.name}}
+            </ion-text>
+        </ion-card-title>
+    </ion-card-content>
+
+    <ion-card-content>
+        <ion-card-subtitle>
+            this information is updated daily, these figures belong to today's date
+            <ion-text color="primary">{{pais.date}}</ion-text>
+        </ion-card-subtitle>
+    </ion-card-content>
+
+
+
+
+    <ion-card color="primary" mode="ios">
+
+        <ion-grid fixed class="ion-text-center">
+            <ion-row>
+                <ion-col size="3">
+                    <ion-icon name="calendar-outline" style="zoom:2.0;"></ion-icon>
+                    <p>Date</p>
+                </ion-col>
+
+
+                <ion-col size="3">
+                    <ion-icon name="trending-up-sharp" style="zoom:2.0;"></ion-icon>
+                    <p>Confirmed</p>
+                </ion-col>
+
+                <ion-col size="3">
+                    <ion-icon name="skull-outline" style="zoom:2.0;"></ion-icon>
+                    <p>Deaths</p>
+                </ion-col>
+
+                <ion-col size="3">
+                    <ion-icon name="pulse" style="zoom:2.0;"></ion-icon>
+                    <p>Recovered</p>
+                </ion-col>
+
+            </ion-row>
+        </ion-grid>
+
+    </ion-card>
+
+
+
+
+    <ion-grid fixed class="ion-text-center">
+        <ion-row>
+            <ion-col size="6">
+                <ion-text color="light">
+                    <h3>Today</h3>
+                </ion-text>
+            </ion-col>
+            <ion-col size="6">
+                <ion-text color="light">
+                    <h3>Yesterday</h3>
+                </ion-text>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+
+
+
+    <ion-grid fixed>
+        <ion-row>
+            <ion-col size="6">
+                <ion-item color="primary">
+                    <ion-icon slot="start" name="trending-up-sharp"></ion-icon>
+                    {{pais.today_confirmed}}
+                </ion-item>
+
+            </ion-col>
+            <ion-col size="6">
+                <ion-item color="primary">
+                    <ion-icon slot="start" name="trending-up-sharp"></ion-icon>
+                    {{pais.yesterday_confirmed}}
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="6">
+                <ion-item color="danger">
+                    <ion-icon slot="start" name="skull-outline"></ion-icon>
+                    {{pais.today_deaths}}
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item color="danger">
+                    <ion-icon slot="start" name="skull-outline"></ion-icon>
+                    {{pais.yesterday_deaths}}
+                </ion-item>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col size="6">
+
+                <ion-item color="success">
+                    <ion-icon slot="start" name="pulse"></ion-icon>
+                    {{pais.today_recovered}}
+                </ion-item>
+            </ion-col>
+            <ion-col size="6">
+                <ion-item color="success">
+                    <ion-icon slot="start" name="pulse"></ion-icon>
+                    {{pais.yesterday_recovered}}
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
     <ion-card-content>
 
         <ion-card-subtitle>
@@ -24,32 +143,48 @@
     </ion-card-content>
 
 
-    <ion-card color="primary" mode="ios">
-        <ion-card-content>
-            <ion-grid fixed class="ion-text-center">
-                <ion-row>
-                    <ion-col size="3">
-                        <ion-icon name="calendar-outline" style="zoom:2.0;"></ion-icon>
-                        <p>Fecha</p>
-                    </ion-col>
 
-                    <ion-col size="3">
-                        <ion-icon name="trending-up-sharp" style="zoom:2.0;"></ion-icon>
-                        <p>Casos</p>
-                    </ion-col>
+    <ion-grid>
+        <ion-row class="ion-text-center">
+            <ion-col size="3">
+                Regiones
 
-                    <ion-col size="3">
-                        <ion-icon name="skull-outline" style="zoom:2.0;"></ion-icon>
-                        <p>Muertes</p>
-                    </ion-col>
+            </ion-col>
+            <ion-col size="3">
+                <ion-icon name="trending-up-sharp" style="zoom:1.5;"></ion-icon>
 
-                    <ion-col size="3">
-                        <ion-icon name="pulse" style="zoom:2.0;"></ion-icon>
-                        <p>Curados</p>
-                    </ion-col>
+            </ion-col>
+            <ion-col size="3">
+                <ion-icon name="skull-outline" style="zoom:1.5;"></ion-icon>
 
-                </ion-row>
-            </ion-grid>
-        </ion-card-content>
-    </ion-card>
+            </ion-col>
+            <ion-col size="3">
+                <ion-icon name="pulse" style="zoom:1.5;"></ion-icon>
+
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-item *ngFor="let region of pais.regions; index as i" color="oscuro">
+        <ion-grid fixed>
+            <ion-row class="ion-text-center">
+                <ion-col size="3">
+
+                    <ion-label>{{region.name}}</ion-label>
+                </ion-col>
+                <ion-col size="3">
+                    {{region.today_confirmed}}
+                </ion-col>
+                <ion-col size="3">
+                    {{region.today_deaths}}
+                </ion-col>
+                <ion-col size="3">
+                    {{region.today_recovered}}
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+    </ion-item>
+
+
 </ion-content>
